@@ -1,0 +1,85 @@
+# ===========================
+# IGNORAR DEPENDÊNCIAS LOCAIS
+# ===========================
+node_modules/
+vendor/
+venv/
+__pycache__/
+*.egg-info/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+
+# ===========================
+# IGNORAR BUILD E ARQUIVOS COMPILADOS
+# ===========================
+target/
+build/
+dist/
+*.o
+*.so
+*.a
+*.exe
+*.out
+*.class
+*.jar
+*.war
+*.ear
+*.dll
+*.pdb
+
+# ===========================
+# IGNORAR CONFIGURAÇÕES DE IDEs E EDITORES
+# ===========================
+.vscode/
+*.code-workspace
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+
+# ===========================
+# IGNORAR CONTROLE DE VERSÃO
+# ===========================
+.git/
+.gitignore
+.hg/
+.svn/
+*.bak
+*.swp
+*.swo
+
+# ===========================
+# IGNORAR CONFIGURAÇÕES LOCAIS E CREDENCIAIS
+# ===========================
+.env
+.env.local
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+
+# ===========================
+# IGNORAR LOGS E ARQUIVOS TEMPORÁRIOS
+# ===========================
+*.log
+*.out
+*.pid
+*.sock
+*.gz
+*.tar
+*.zip
+*.rar
+*.7z
+*.tmp
+*.cache
+.history
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+pip-log.txt
+pip-delete-this-directory.txt

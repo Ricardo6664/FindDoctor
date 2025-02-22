@@ -18,5 +18,3 @@ Agora pode enviar as alterações para a branch git push origin branch_em_que_es
 
 Ai lá no gitlab, crie um merge request dessa branch pra __Branch desejada__.
 Depois disso eu vou xingar o código que vc enviou e juntar na __Branch desejada__
-
-Tutorial de login pra ver depois: https://learndjango.com/tutorials/django-login-and-logout-tutorial

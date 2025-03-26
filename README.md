@@ -1,3 +1,8 @@
+Ferramentas a serem utilizadas:
+  - Front-end: React
+  - Back-end: .net (C#)
+  - IA: Python
+
 Utilizar as branchs respectivas no desenvolvimento
 
 Subir para a branch Test Integration para juntar os codigos e testar 

@@ -1,3 +1,7 @@
+Entrar na pasta FindDoctor e rodar no terminal:
+
+	- npm install
+	- npm run dev
 
 # Projeto: Busca de Locais de Atendimento Médico
 

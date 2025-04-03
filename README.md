@@ -31,9 +31,7 @@ Este projeto tem como objetivo fornecer um serviço de busca de locais de atendi
 
 ## 🗃️ Fontes de Dados
 
-- **Nominatim:** Para geocodificação de endereços.  
-- **Google Places API:** Para obtenção de pontos de interesse médico.  
-- **Overpass API:** Alternativa gratuita para consultas espaciais.  
+- **Photon API:** Para geocodificação de endereços.
 - **CNES:** Base de dados oficial de estabelecimentos de saúde no Brasil.  
 
 ---

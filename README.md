@@ -19,21 +19,16 @@ Este projeto tem como objetivo fornecer um serviço de busca de locais de atendi
    - Utiliza a API do **Nominatim** para converter o endereço informado em coordenadas geográficas (latitude e longitude).  
 
 2. **Busca de Pontos de Atendimento Médico**  
-   - Com as coordenadas obtidas, a aplicação consulta:  
-     - A API **Google Places** para obter locais cadastrados.  
-     - O serviço **Overpass API** como alternativa gratuita para busca de estabelecimentos médicos.  
+    - As coordenadas obtidas são utilizadas para buscar no banco de dados locais de atendimento médico previamente cadastrados. 
 
 3. **Consulta no Banco de Dados**  
-   - As coordenadas obtidas são utilizadas para buscar no banco de dados locais de atendimento médico previamente cadastrados.  
-   - Os dados são inicialmente coletados e atualizados com base no **Cadastro Nacional de Estabelecimentos de Saúde (CNES)**.  
+   - Serão retornados demais detalhes do estabelecimento, que foram previamente cadastrados.  
 
 ---
 
 ## 🗃️ Fontes de Dados
 
-- **Nominatim:** Para geocodificação de endereços.  
-- **Google Places API:** Para obtenção de pontos de interesse médico.  
-- **Overpass API:** Alternativa gratuita para consultas espaciais.  
+- **Photon API:** Para geocodificação de endereços.
 - **CNES:** Base de dados oficial de estabelecimentos de saúde no Brasil.  
 
 ---

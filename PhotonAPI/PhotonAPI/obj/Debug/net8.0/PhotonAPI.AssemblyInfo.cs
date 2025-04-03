@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PhotonAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a664699462cb04606b251278d50f6da1e9dd328")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70e804621712c0e7c0b4b0c55f14f65513814e6e")]
 [assembly: System.Reflection.AssemblyProductAttribute("PhotonAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PhotonAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

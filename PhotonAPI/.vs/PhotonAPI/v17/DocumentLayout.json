@@ -1,10 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\PhotonAPI\\",
+  "WorkspaceRootPath": "C:\\Users\\Aluno\\Documents\\AAAAA\\FindDoctor\\PhotonAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BC51D306-ECAC-4A36-989F-309EBB09DE8A}|PhotonAPI\\PhotonAPI.csproj|c:\\users\\artur\\documents\\programa\\finddoctor\\photonapi\\photonapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5CA30716-2220-413B-98C8-072931F10DA5}|APITeste\\APITeste.csproj|c:\\users\\aluno\\documents\\aaaaa\\finddoctor\\photonapi\\apiteste\\controllers\\testecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CA30716-2220-413B-98C8-072931F10DA5}|APITeste\\APITeste.csproj|solutionrelative:apiteste\\controllers\\testecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CA30716-2220-413B-98C8-072931F10DA5}|APITeste\\APITeste.csproj|c:\\users\\aluno\\documents\\aaaaa\\finddoctor\\photonapi\\apiteste\\apiteste.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5CA30716-2220-413B-98C8-072931F10DA5}|APITeste\\APITeste.csproj|solutionrelative:apiteste\\apiteste.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC51D306-ECAC-4A36-989F-309EBB09DE8A}|PhotonAPI\\PhotonAPI.csproj|c:\\users\\aluno\\documents\\aaaaa\\finddoctor\\photonapi\\photonapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BC51D306-ECAC-4A36-989F-309EBB09DE8A}|PhotonAPI\\PhotonAPI.csproj|solutionrelative:photonapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CA30716-2220-413B-98C8-072931F10DA5}|APITeste\\APITeste.csproj|c:\\users\\aluno\\documents\\aaaaa\\finddoctor\\photonapi\\apiteste\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CA30716-2220-413B-98C8-072931F10DA5}|APITeste\\APITeste.csproj|solutionrelative:apiteste\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,17 +26,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "APITeste",
+              "DocumentMoniker": "C:\\Users\\Aluno\\Documents\\AAAAA\\FindDoctor\\PhotonAPI\\APITeste\\APITeste.csproj",
+              "RelativeDocumentMoniker": "APITeste\\APITeste.csproj",
+              "ToolTip": "C:\\Users\\Aluno\\Documents\\AAAAA\\FindDoctor\\PhotonAPI\\APITeste\\APITeste.csproj",
+              "RelativeToolTip": "APITeste\\APITeste.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-03T23:00:05.033Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\PhotonAPI\\PhotonAPI\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Aluno\\Documents\\AAAAA\\FindDoctor\\PhotonAPI\\APITeste\\Program.cs",
+              "RelativeDocumentMoniker": "APITeste\\Program.cs",
+              "ToolTip": "C:\\Users\\Aluno\\Documents\\AAAAA\\FindDoctor\\PhotonAPI\\APITeste\\Program.cs",
+              "RelativeToolTip": "APITeste\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-03T22:58:43.115Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TesteController.cs",
+              "DocumentMoniker": "C:\\Users\\Aluno\\Documents\\AAAAA\\FindDoctor\\PhotonAPI\\APITeste\\Controllers\\TesteController.cs",
+              "RelativeDocumentMoniker": "APITeste\\Controllers\\TesteController.cs",
+              "ToolTip": "C:\\Users\\Aluno\\Documents\\AAAAA\\FindDoctor\\PhotonAPI\\APITeste\\Controllers\\TesteController.cs",
+              "RelativeToolTip": "APITeste\\Controllers\\TesteController.cs",
+              "ViewState": "AQIAAB8AAAAAAAAAAAAswC4AAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-03T22:58:00.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Aluno\\Documents\\AAAAA\\FindDoctor\\PhotonAPI\\PhotonAPI\\Program.cs",
               "RelativeDocumentMoniker": "PhotonAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\PhotonAPI\\PhotonAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Aluno\\Documents\\AAAAA\\FindDoctor\\PhotonAPI\\PhotonAPI\\Program.cs",
               "RelativeToolTip": "PhotonAPI\\Program.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAQwDQAAAABAAAAAAAAAA==",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-30T21:11:06.123Z",
               "EditorCaption": ""

@@ -20,7 +20,7 @@ Este projeto tem como objetivo fornecer um serviço de busca de locais de atendi
 ## 🗺️ Fluxo de Funcionamento
 
 1. **Obtenção da Localização (Latitude e Longitude)**  
-   - Utiliza a API do **Nominatim** para converter o endereço informado em coordenadas geográficas (latitude e longitude).  
+   - Utiliza a API do **Photon** para converter o endereço informado em coordenadas geográficas (latitude e longitude).  
 
 2. **Busca de Pontos de Atendimento Médico**  
   - As coordenadas obtidas são utilizadas para buscar no banco de dados locais de atendimento médico previamente cadastrados.

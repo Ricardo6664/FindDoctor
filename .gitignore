@@ -131,3 +131,5 @@ dist
 
 # Visual Studio
 .vs/
+
+FindDoctorBackend/FindDoctorAPI/temp/

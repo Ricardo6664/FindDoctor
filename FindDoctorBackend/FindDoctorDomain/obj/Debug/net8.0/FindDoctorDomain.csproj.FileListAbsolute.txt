@@ -1,0 +1,13 @@
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\bin\Debug\net8.0\FindDoctorDomain.deps.json
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\bin\Debug\net8.0\FindDoctorDomain.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\bin\Debug\net8.0\FindDoctorDomain.pdb
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\FindDoctorDomain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\FindDoctorDomain.AssemblyInfoInputs.cache
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\FindDoctorDomain.AssemblyInfo.cs
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\FindDoctorDomain.csproj.CoreCompileInputs.cache
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\FindDoctorDomain.sourcelink.json
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\FindDoctorDomain.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\refint\FindDoctorDomain.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\FindDoctorDomain.pdb
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\ref\FindDoctorDomain.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorDomain\obj\Debug\net8.0\FindDoctorDomain.csproj.AssemblyReference.cache

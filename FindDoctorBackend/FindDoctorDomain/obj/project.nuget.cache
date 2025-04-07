@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "gkkqZVQiLDk=",
+  "dgSpecHash": "olXAJ7+446c=",
   "success": true,
   "projectFilePath": "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Tiago Fogolin\\.nuget\\packages\\nettopologysuite\\2.6.0\\nettopologysuite.2.6.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "2mGua9XjTgeJWG2vHmEE0FvOCszVIvcWwfWks3jbJsg=",
+  "Source": "FindDoctorAPI",
+  "BasePath": "_content/FindDoctorAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

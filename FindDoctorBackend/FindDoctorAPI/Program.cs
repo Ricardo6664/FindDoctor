@@ -1,6 +1,21 @@
+using FindDoctorDomain.Interfaces;
+using FindDoctorInfra.Data;
+using FindDoctorInfra.HostedServices;
+using FindDoctorInfra.Processadores;
+using FindDoctorInfra.Repositories;
+using FindDoctorInfra.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), npgsqlOptions => npgsqlOptions.UseNetTopologySuite()));
+
 // Add services to the container.
+builder.Services.AddScoped<ImportacaoCnesService>();
+builder.Services.AddHostedService<ImportaCnesHostedService>();
+builder.Services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
+//builder.Services.AddScoped<ICnesCsvProcessor, ProfissionalCsvProcessor>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

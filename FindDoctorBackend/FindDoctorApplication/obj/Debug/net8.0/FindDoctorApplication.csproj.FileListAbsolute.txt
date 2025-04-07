@@ -1,0 +1,16 @@
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\bin\Debug\net8.0\FindDoctorApplication.deps.json
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\bin\Debug\net8.0\FindDoctorApplication.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\bin\Debug\net8.0\FindDoctorApplication.pdb
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\bin\Debug\net8.0\FindDoctorDomain.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\bin\Debug\net8.0\FindDoctorDomain.pdb
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\FindDoctorApplication.csproj.AssemblyReference.cache
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\FindDoctorApplication.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\FindDoctorApplication.AssemblyInfoInputs.cache
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\FindDoctorApplication.AssemblyInfo.cs
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\FindDoctorApplication.csproj.CoreCompileInputs.cache
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\FindDoctorApplication.sourcelink.json
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\FindDoct.D01EB45D.Up2Date
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\FindDoctorApplication.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\refint\FindDoctorApplication.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\FindDoctorApplication.pdb
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorApplication\obj\Debug\net8.0\ref\FindDoctorApplication.dll

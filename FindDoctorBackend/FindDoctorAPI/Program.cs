@@ -12,6 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), npgsqlOptions => npgsqlOptions.UseNetTopologySuite()));
 
 // Add services to the container.
+builder.Services.AddScoped<IGeocodingService, PhotonGeocodingService>();
 builder.Services.AddScoped<ImportacaoCnesService>();
 builder.Services.AddHostedService<ImportaCnesHostedService>();
 builder.Services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();

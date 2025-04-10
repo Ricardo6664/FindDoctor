@@ -176,3 +176,5 @@ C:\Users\artur\Documents\programa\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj
 C:\Users\artur\Documents\programa\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\FindDoctorAPI.pdb
 C:\Users\artur\Documents\programa\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\FindDoctorAPI.genruntimeconfig.cache
 C:\Users\artur\Documents\programa\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\ref\FindDoctorAPI.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\bin\Debug\net8.0\FindDoctorApplication.dll
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\bin\Debug\net8.0\FindDoctorApplication.pdb

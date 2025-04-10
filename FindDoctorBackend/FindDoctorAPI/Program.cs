@@ -1,5 +1,6 @@
 using FindDoctorDomain.Interfaces;
 using FindDoctorInfra.Data;
+using FindDoctorApplication.Services;
 using FindDoctorInfra.HostedServices;
 using FindDoctorInfra.Processadores;
 using FindDoctorInfra.Repositories;
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Add services to the container.
 builder.Services.AddScoped<IGeocodingService, PhotonGeocodingService>();
 builder.Services.AddScoped<ImportacaoCnesService>();
+builder.Services.AddScoped<AddressAppService>();
 builder.Services.AddHostedService<ImportaCnesHostedService>();
 builder.Services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
 //builder.Services.AddScoped<ICnesCsvProcessor, ProfissionalCsvProcessor>();

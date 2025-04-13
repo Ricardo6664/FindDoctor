@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "FindDoctorAPI/1.0.0": {
         "dependencies": {
+          "FindDoctorApplication": "1.0.0",
           "FindDoctorInfra": "1.0.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
@@ -634,6 +635,17 @@
           }
         }
       },
+      "FindDoctorApplication/1.0.0": {
+        "dependencies": {
+          "FindDoctorDomain": "1.0.0"
+        },
+        "runtime": {
+          "FindDoctorApplication.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "FindDoctorDomain/1.0.0": {
         "dependencies": {
           "NetTopologySuite": "2.6.0"
@@ -1025,6 +1037,11 @@
       "sha512": "sha512-r2JRkLjsYrq5Dpo7+y3Wa73OfirZPdVhxiTJWwZ+oJM7FOAe0LkM3GlH+pgkNRdd1G1kwUbmRCdmh4uoaWwu1g==",
       "path": "system.text.json/9.0.3",
       "hashPath": "system.text.json.9.0.3.nupkg.sha512"
+    },
+    "FindDoctorApplication/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "FindDoctorDomain/1.0.0": {
       "type": "project",

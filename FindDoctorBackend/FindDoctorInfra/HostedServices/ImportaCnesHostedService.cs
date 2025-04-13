@@ -20,12 +20,12 @@ namespace FindDoctorInfra.HostedServices
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Console.WriteLine("HostedService começou");
-            using var scope = _provider.CreateScope();
-            var service = scope.ServiceProvider.GetRequiredService<ImportacaoCnesService>();
+            //Console.WriteLine("HostedService começou");
+            //using var scope = _provider.CreateScope();
+            //var service = scope.ServiceProvider.GetRequiredService<ImportacaoCnesService>();
 
-            // roda só uma vez (ex: no startup)
-            await service.ImportarAsync(stoppingToken);
+            //// roda só uma vez (ex: no startup)
+            //await service.ImportarAsync(stoppingToken);
         }
     }
 }

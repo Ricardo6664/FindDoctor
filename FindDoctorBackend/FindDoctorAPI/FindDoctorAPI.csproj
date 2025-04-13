@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\FindDoctorApplication\FindDoctorApplication.csproj" />
     <ProjectReference Include="..\FindDoctorInfra\FindDoctorInfra.csproj" />
   </ItemGroup>
 

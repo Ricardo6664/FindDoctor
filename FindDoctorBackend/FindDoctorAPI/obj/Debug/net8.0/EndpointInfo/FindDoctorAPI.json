@@ -86,6 +86,10 @@
             "type": "string",
             "nullable": true
           },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
           "location": {
             "$ref": "#/components/schemas/Coordinate"
           }

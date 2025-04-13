@@ -15,6 +15,7 @@ namespace FindDoctorDomain.ValueObjects
         public string Country { get; set; }      
         public string County { get; set; } // mesmo nome do campo que volta da photon
         public string State { get; set; }
+        public string Name { get; set; }
         public Coordinate Location { get; set; }
     }
 }

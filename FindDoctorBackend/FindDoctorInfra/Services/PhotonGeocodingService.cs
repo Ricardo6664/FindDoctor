@@ -43,6 +43,7 @@ namespace FindDoctorInfra.Services
                         Country = props.Country,
                         County = props.County,
                         State = props.State,
+                        Name  = props.Name,
                         Location = new Coordinate(coordinates[1], coordinates[0])
                     };
 

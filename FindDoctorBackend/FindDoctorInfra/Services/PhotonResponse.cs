@@ -44,4 +44,8 @@ public class PhotonProperties
 
     [JsonPropertyName("state")]
     public string State { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
 }

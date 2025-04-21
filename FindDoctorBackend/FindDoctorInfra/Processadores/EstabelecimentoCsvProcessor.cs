@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace FindDoctorInfra.Processadores
 {
@@ -38,17 +39,21 @@ namespace FindDoctorInfra.Processadores
                 var colunas = linha.Split(';');
                 if (colunas.Length < 44) continue;
 
+
                 try
                 {
-                    var latitude = double.TryParse(colunas[41].Replace(",", "."), out var lat) ? lat : 0;
-                    var longitude = double.TryParse(colunas[42].Replace(",", "."), out var lng) ? lng : 0;
+                    var latitudeStr = colunas[39]?.Trim('"').Trim();
+                    var longitudeStr = colunas[40]?.Trim('"').Trim();
+
+                    var latitude = double.TryParse(latitudeStr, NumberStyles.Any, CultureInfo.InvariantCulture, out var lat) ? lat : 0;
+                    var longitude = double.TryParse(longitudeStr, NumberStyles.Any, CultureInfo.InvariantCulture, out var lng) ? lng : 0;
 
                     var estabelecimento = new Estabelecimento
                     {
                         CodigoUnidade = colunas[0]?.Trim('"'),
                         CodigoCNES = colunas[1]?.Trim('"'),
                         CNPJ = colunas[20]?.Trim('"'),
-                        Nome = colunas[5]?.Trim('"'),
+                        Nome = colunas[6]?.Trim('"'),
                         Endereco = colunas[7]?.Trim('"'),
                         Numero = colunas[8]?.Trim('"'),
                         Bairro = colunas[10]?.Trim('"'),

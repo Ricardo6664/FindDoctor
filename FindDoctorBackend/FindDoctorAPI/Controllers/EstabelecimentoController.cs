@@ -16,9 +16,9 @@ namespace FindDoctorAPI.Controllers
         }
 
         [HttpGet("proximos")]
-        public async Task<IActionResult> BuscarProximos([FromQuery] string endereco, [FromQuery] double raioKm = 5)
+        public async Task<IActionResult> BuscarProximos([FromQuery] double latitude, double longitude, [FromQuery] double raioKm = 5)
         {
-            var estabelecimentos = await _service.BuscarProximosAsync(endereco, raioKm);
+            var estabelecimentos = await _service.BuscarProximosAsync(latitude, longitude, raioKm);
             return Ok(estabelecimentos);
         }
     }

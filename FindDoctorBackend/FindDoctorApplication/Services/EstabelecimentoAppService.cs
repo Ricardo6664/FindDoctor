@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FindDoctorDomain.Entities;
+using FindDoctorDomain.ValueObjects;
 using FindDoctorDomain.Interfaces;
 
 namespace FindDoctorApplication.Services
@@ -19,20 +20,12 @@ namespace FindDoctorApplication.Services
             _geocoding = geocoding;
         }
 
-        public async Task<List<Estabelecimento>> BuscarProximosAsync(string endereco, double raioKm)
+        public async Task<List<EstabelecimentoDTO>> BuscarProximosAsync(double latitude, double longitude, double raioKm)
         {
-            var coordenadas = await _geocoding.GetCoordinatesAsync(endereco);
-
-            if (!coordenadas.Any())
-                return new List<Estabelecimento>();
-
-            var primeria = coordenadas.First();
-            var cidade = primeria.City;
 
             return await _repo.ObterProximosAsync(
-                cidade,
-                primeria.Location.Latitude,
-                primeria.Location.Longitude,
+                latitude,
+                longitude,
                 raioKm
             );
         }

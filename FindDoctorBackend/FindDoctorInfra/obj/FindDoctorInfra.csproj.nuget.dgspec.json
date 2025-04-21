@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\FindDoctorInfra.csproj": {}
+    "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\FindDoctorInfra.csproj": {}
   },
   "projects": {
-    "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj": {
+    "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj",
+        "projectUniqueName": "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj",
         "projectName": "FindDoctorDomain",
-        "projectPath": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj",
-        "packagesPath": "C:\\Users\\artur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\obj\\",
+        "projectPath": "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj",
+        "packagesPath": "C:\\Users\\Tiago Fogolin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\artur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Tiago Fogolin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -72,24 +71,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\FindDoctorInfra.csproj": {
+    "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\FindDoctorInfra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\FindDoctorInfra.csproj",
+        "projectUniqueName": "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\FindDoctorInfra.csproj",
         "projectName": "FindDoctorInfra",
-        "projectPath": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\FindDoctorInfra.csproj",
-        "packagesPath": "C:\\Users\\artur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\obj\\",
+        "projectPath": "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\FindDoctorInfra.csproj",
+        "packagesPath": "C:\\Users\\Tiago Fogolin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorInfra\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\artur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Tiago Fogolin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -98,15 +97,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj": {
-                "projectPath": "C:\\Users\\artur\\Documents\\programa\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj"
+              "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj": {
+                "projectPath": "C:\\Users\\Tiago Fogolin\\Desktop\\FindDoctor\\FindDoctorBackend\\FindDoctorDomain\\FindDoctorDomain.csproj"
               }
             }
           }
@@ -170,7 +168,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

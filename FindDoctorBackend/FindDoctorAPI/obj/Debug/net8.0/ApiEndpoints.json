@@ -24,5 +24,31 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "FindDoctorAPI.Controllers.EstabelecimentoController",
+    "Method": "BuscarProximos",
+    "RelativePath": "api/Estabelecimento/proximos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "latitude",
+        "Type": "System.Double",
+        "IsRequired": false
+      },
+      {
+        "Name": "longitude",
+        "Type": "System.Double",
+        "IsRequired": false
+      },
+      {
+        "Name": "raioKm",
+        "Type": "System.Double",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

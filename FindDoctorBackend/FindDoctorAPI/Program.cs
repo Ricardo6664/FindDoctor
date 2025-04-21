@@ -19,7 +19,7 @@ builder.Services.AddScoped<AddressAppService>();
 builder.Services.AddHostedService<ImportaCnesHostedService>();
 builder.Services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
 builder.Services.AddScoped<EstabelecimentoAppService>();
-//builder.Services.AddScoped<ICnesCsvProcessor, ProfissionalCsvProcessor>();
+//builder.Services.AddScoped<ICnesCsvProcessor, EstabelecimentoCsvProcessor>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

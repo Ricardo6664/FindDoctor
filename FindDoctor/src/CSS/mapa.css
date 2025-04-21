@@ -1,0 +1,19 @@
+.mapa_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    padding: 15px;
+}
+
+.mapa_content{
+    max-width: 1920px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.mapa_logalizacao{
+    width: 100%;
+    height: 600px;
+}

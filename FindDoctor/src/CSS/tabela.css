@@ -1,0 +1,27 @@
+.tabela_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    padding: 30px 15px;
+}
+
+.tabela_content{
+    display: flex;
+    justify-content: center;
+    max-width: 1920px;
+    width: 100%;
+}
+
+.tabela_infos{
+    max-width: 1106px;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #000;
+}
+
+.tabela_titulo,
+.tabela_dado{
+    padding: 5px;
+    border: 1px solid #000;
+}

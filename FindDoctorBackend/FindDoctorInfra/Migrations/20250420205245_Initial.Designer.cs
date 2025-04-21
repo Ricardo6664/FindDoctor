@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FindDoctorInfra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250406222942_Maisum")]
-    partial class Maisum
+    [Migration("20250420205245_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,11 +46,8 @@ namespace FindDoctorInfra.Migrations
 
             modelBuilder.Entity("FindDoctorDomain.Entities.Especialidade", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -63,11 +60,8 @@ namespace FindDoctorInfra.Migrations
 
             modelBuilder.Entity("FindDoctorDomain.Entities.Estabelecimento", b =>
                 {
-                    b.Property<int>("CodigoCNES")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CodigoCNES"));
+                    b.Property<string>("CodigoCNES")
+                        .HasColumnType("text");
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -79,6 +73,9 @@ namespace FindDoctorInfra.Migrations
 
                     b.Property<string>("Cidade")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CodigoUnidade")
                         .HasColumnType("text");
 
                     b.Property<string>("Endereco")
@@ -121,8 +118,9 @@ namespace FindDoctorInfra.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CodigoCNES")
-                        .HasColumnType("integer");
+                    b.Property<string>("CodigoCNES")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("DiaSemanaId")
                         .HasColumnType("integer");
@@ -144,17 +142,17 @@ namespace FindDoctorInfra.Migrations
 
             modelBuilder.Entity("FindDoctorDomain.Entities.Profissional", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("CO_Profissional")
+                        .HasColumnType("text");
 
                     b.Property<string>("CNS")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("EspecialidadeId")
+                    b.Property<string>("EspecialidadeId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Id")
                         .HasColumnType("integer");
 
                     b.Property<string>("Nome")
@@ -164,7 +162,7 @@ namespace FindDoctorInfra.Migrations
                     b.Property<bool>("SUS")
                         .HasColumnType("boolean");
 
-                    b.HasKey("Id");
+                    b.HasKey("CO_Profissional");
 
                     b.HasIndex("EspecialidadeId");
 
@@ -173,11 +171,11 @@ namespace FindDoctorInfra.Migrations
 
             modelBuilder.Entity("FindDoctorDomain.Entities.ProfissionalEstabelecimento", b =>
                 {
-                    b.Property<int>("Id_CNES")
-                        .HasColumnType("integer");
+                    b.Property<string>("Id_CNES")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Id_Profissional")
-                        .HasColumnType("integer");
+                    b.Property<string>("Id_Profissional")
+                        .HasColumnType("text");
 
                     b.HasKey("Id_CNES", "Id_Profissional");
 

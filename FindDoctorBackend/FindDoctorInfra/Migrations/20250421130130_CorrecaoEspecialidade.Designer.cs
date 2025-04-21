@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -12,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FindDoctorInfra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250405145447_Initial")]
-    partial class Initial
+    [Migration("20250421130130_CorrecaoEspecialidade")]
+    partial class CorrecaoEspecialidade
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +24,7 @@ namespace FindDoctorInfra.Migrations
                 .HasAnnotation("ProductVersion", "9.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "postgis");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("FindDoctorDomain.Entities.DiaSemana", b =>
@@ -44,11 +46,8 @@ namespace FindDoctorInfra.Migrations
 
             modelBuilder.Entity("FindDoctorDomain.Entities.Especialidade", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -61,11 +60,8 @@ namespace FindDoctorInfra.Migrations
 
             modelBuilder.Entity("FindDoctorDomain.Entities.Estabelecimento", b =>
                 {
-                    b.Property<int>("CodigoCNES")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CodigoCNES"));
+                    b.Property<string>("CodigoUnidade")
+                        .HasColumnType("text");
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -79,13 +75,17 @@ namespace FindDoctorInfra.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("CodigoCNES")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Endereco")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Localizacao")
+                    b.Property<Point>("Localizacao")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("geometry (point)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -106,7 +106,7 @@ namespace FindDoctorInfra.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("CodigoCNES");
+                    b.HasKey("CodigoUnidade");
 
                     b.ToTable("Estabelecimentos");
                 });
@@ -119,8 +119,9 @@ namespace FindDoctorInfra.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CodigoCNES")
-                        .HasColumnType("integer");
+                    b.Property<string>("CodigoCNES")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("DiaSemanaId")
                         .HasColumnType("integer");
@@ -142,17 +143,17 @@ namespace FindDoctorInfra.Migrations
 
             modelBuilder.Entity("FindDoctorDomain.Entities.Profissional", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("CO_Profissional")
+                        .HasColumnType("text");
 
                     b.Property<string>("CNS")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("EspecialidadeId")
+                    b.Property<string>("EspecialidadeId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Id")
                         .HasColumnType("integer");
 
                     b.Property<string>("Nome")
@@ -162,7 +163,7 @@ namespace FindDoctorInfra.Migrations
                     b.Property<bool>("SUS")
                         .HasColumnType("boolean");
 
-                    b.HasKey("Id");
+                    b.HasKey("CO_Profissional");
 
                     b.HasIndex("EspecialidadeId");
 
@@ -171,11 +172,14 @@ namespace FindDoctorInfra.Migrations
 
             modelBuilder.Entity("FindDoctorDomain.Entities.ProfissionalEstabelecimento", b =>
                 {
-                    b.Property<int>("Id_CNES")
-                        .HasColumnType("integer");
+                    b.Property<string>("Id_CNES")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Id_Profissional")
-                        .HasColumnType("integer");
+                    b.Property<string>("Id_Profissional")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EspecialidadeId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id_CNES", "Id_Profissional");
 
@@ -207,9 +211,7 @@ namespace FindDoctorInfra.Migrations
                 {
                     b.HasOne("FindDoctorDomain.Entities.Especialidade", "Especialidade")
                         .WithMany("Profissionais")
-                        .HasForeignKey("EspecialidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EspecialidadeId");
 
                     b.Navigation("Especialidade");
                 });

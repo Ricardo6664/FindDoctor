@@ -27,7 +27,7 @@ namespace FindDoctorInfra.Processadores
             using var reader = new StreamReader(caminhoArquivo, Encoding.GetEncoding("ISO-8859-1"));
 
             var header = reader.ReadLine();
-
+ 
             while (!reader.EndOfStream)
             {
                 var linha = reader.ReadLine();
@@ -38,9 +38,9 @@ namespace FindDoctorInfra.Processadores
 
                 try
                 {
-                    var cpf = colunas[1].Trim('\'');
-                    var nome = colunas[2];
-                    var cns = colunas[3];
+                    var coProfissional = colunas[0]?.Trim('"');
+                    var nome = colunas[2]?.Trim('"');
+                    var cns = colunas[3]?.Trim('"');
                     var sus = false;
 
                     var profissional = new Profissional
@@ -48,6 +48,7 @@ namespace FindDoctorInfra.Processadores
                         Nome = nome,
                         CNS = cns,
                         SUS = sus,
+                        CO_Profissional = coProfissional,
                         EspecialidadeId = null
                     };
 

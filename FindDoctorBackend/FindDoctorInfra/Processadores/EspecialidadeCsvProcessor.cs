@@ -40,11 +40,12 @@ namespace FindDoctorInfra.Processadores
                 var colunas = linha.Split(';');
                 if (colunas.Length < 2) continue;
 
+                var id = colunas[0].Trim('"');
                 var nome = colunas[1]?.Trim('"');
-
+                Console.WriteLine(id);
                 var especialidade = new Especialidade
                 {
-                    Id = int.TryParse(colunas[1], out var id) ? id: 0,
+                    Id = id,
                     Nome = nome
                 };
                 

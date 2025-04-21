@@ -1,4 +1,5 @@
 ﻿using FindDoctorDomain.Entities;
+using FindDoctorDomain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace FindDoctorDomain.Interfaces
     {
         Task AdicionarAsync(Estabelecimento est, CancellationToken cancellationToken);
         Task SalvarAsync(CancellationToken cancellationToken);
+        Task<List<EstabelecimentoDTO>> ObterProximosAsync(double latitude, double longitude, double raioKm);
     }
 }

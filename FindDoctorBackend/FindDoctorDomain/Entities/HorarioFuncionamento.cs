@@ -9,7 +9,7 @@ namespace FindDoctorDomain.Entities
     public class HorarioFuncionamento
     {
         public int Id { get; set; }
-        public int CodigoCNES { get; set; }
+        public string CodigoCNES { get; set; }
         public int DiaSemanaId { get; set; }
         public TimeOnly HoraInicio { get; set; }
         public TimeOnly HoraFim { get; set; }

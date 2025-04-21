@@ -28,12 +28,11 @@ namespace FindDoctorInfra.Data
         {
             modelBuilder.Entity<Estabelecimento>(entity =>
             {
-                entity.HasKey(e => e.CodigoCNES);
+                entity.HasKey(e => e.CodigoUnidade);
 
                 entity.Property(e => e.Localizacao)
                       .HasColumnType("geometry (point)");
             });
-
 
             modelBuilder.Entity<ProfissionalEstabelecimento>()
                 .HasKey(pe => new { pe.Id_CNES, pe.Id_Profissional });
@@ -41,7 +40,8 @@ namespace FindDoctorInfra.Data
             modelBuilder.Entity<ProfissionalEstabelecimento>()
                 .HasOne(pe => pe.Estabelecimento)
                 .WithMany(e => e.Profissionais)
-                .HasForeignKey(pe => pe.Id_CNES);
+                .HasForeignKey(pe => pe.Id_CNES)
+                .HasPrincipalKey(e => e.CodigoUnidade);
 
             modelBuilder.Entity<ProfissionalEstabelecimento>()
                 .HasOne(pe => pe.Profissional)
@@ -51,7 +51,8 @@ namespace FindDoctorInfra.Data
             modelBuilder.Entity<HorarioFuncionamento>()
                 .HasOne(h => h.Estabelecimento)
                 .WithMany(e => e.HorariosFuncionamento)
-                .HasForeignKey(h => h.CodigoCNES);
+                .HasForeignKey(h => h.CodigoCNES)
+                .HasPrincipalKey(e => e.CodigoUnidade);
 
             modelBuilder.Entity<HorarioFuncionamento>()
                 .HasOne(h => h.DiaSemana)

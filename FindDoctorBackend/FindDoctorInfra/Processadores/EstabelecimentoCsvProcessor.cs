@@ -45,7 +45,8 @@ namespace FindDoctorInfra.Processadores
 
                     var estabelecimento = new Estabelecimento
                     {
-                        CodigoCNES = int.TryParse(colunas[1], out var codCnes) ? codCnes : 0,
+                        CodigoUnidade = colunas[0]?.Trim('"'),
+                        CodigoCNES = colunas[1]?.Trim('"'),
                         CNPJ = colunas[20]?.Trim('"'),
                         Nome = colunas[5]?.Trim('"'),
                         Endereco = colunas[7]?.Trim('"'),

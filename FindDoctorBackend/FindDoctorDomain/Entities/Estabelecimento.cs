@@ -11,8 +11,10 @@ namespace FindDoctorDomain.Entities
 {
     public class Estabelecimento
     {
+        
+        public string CodigoCNES { get; set; }
         [Key]
-        public int CodigoCNES { get; set; }
+        public string CodigoUnidade { get; set; }
         public string Nome { get; set; }
         public string CNPJ { get; set; }
         public string Endereco { get; set; }

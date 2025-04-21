@@ -8,9 +8,9 @@ namespace FindDoctorDomain.Entities
 {
     public class ProfissionalEstabelecimento
     {
-        public int Id_CNES { get; set; }
-        public int Id_Profissional { get; set; }
-
+        public string Id_CNES { get; set; }
+        public string Id_Profissional { get; set; }
+        public string? EspecialidadeId { get; set; }
         public Estabelecimento Estabelecimento { get; set; }
         public Profissional Profissional { get; set; }
     }

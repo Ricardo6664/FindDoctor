@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -12,6 +13,9 @@ namespace FindDoctorInfra.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("Npgsql:PostgresExtension:postgis", ",,");
+
             migrationBuilder.CreateTable(
                 name: "DiasSemana",
                 columns: table => new
@@ -29,8 +33,7 @@ namespace FindDoctorInfra.Migrations
                 name: "Especialidades",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -42,8 +45,8 @@ namespace FindDoctorInfra.Migrations
                 name: "Estabelecimentos",
                 columns: table => new
                 {
-                    CodigoCNES = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CodigoCNES = table.Column<string>(type: "text", nullable: false),
+                    CodigoUnidade = table.Column<string>(type: "text", nullable: true),
                     Nome = table.Column<string>(type: "text", nullable: false),
                     CNPJ = table.Column<string>(type: "text", nullable: false),
                     Endereco = table.Column<string>(type: "text", nullable: false),
@@ -52,7 +55,7 @@ namespace FindDoctorInfra.Migrations
                     Cidade = table.Column<string>(type: "text", nullable: false),
                     UF = table.Column<string>(type: "text", nullable: false),
                     SUS = table.Column<bool>(type: "boolean", nullable: false),
-                    Localizacao = table.Column<string>(type: "text", nullable: false),
+                    Localizacao = table.Column<Point>(type: "geometry (point)", nullable: false),
                     Telefone = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -64,22 +67,21 @@ namespace FindDoctorInfra.Migrations
                 name: "Profissionais",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CO_Profissional = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
-                    EspecialidadeId = table.Column<int>(type: "integer", nullable: false),
+                    EspecialidadeId = table.Column<string>(type: "text", nullable: true),
                     CNS = table.Column<string>(type: "text", nullable: false),
                     SUS = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Profissionais", x => x.Id);
+                    table.PrimaryKey("PK_Profissionais", x => x.CO_Profissional);
                     table.ForeignKey(
                         name: "FK_Profissionais_Especialidades_EspecialidadeId",
                         column: x => x.EspecialidadeId,
                         principalTable: "Especialidades",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -88,7 +90,7 @@ namespace FindDoctorInfra.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CodigoCNES = table.Column<int>(type: "integer", nullable: false),
+                    CodigoCNES = table.Column<string>(type: "text", nullable: false),
                     DiaSemanaId = table.Column<int>(type: "integer", nullable: false),
                     HoraInicio = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     HoraFim = table.Column<TimeOnly>(type: "time without time zone", nullable: false)
@@ -114,8 +116,8 @@ namespace FindDoctorInfra.Migrations
                 name: "ProfissionalEstabelecimentos",
                 columns: table => new
                 {
-                    Id_CNES = table.Column<int>(type: "integer", nullable: false),
-                    Id_Profissional = table.Column<int>(type: "integer", nullable: false)
+                    Id_CNES = table.Column<string>(type: "text", nullable: false),
+                    Id_Profissional = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,7 +132,7 @@ namespace FindDoctorInfra.Migrations
                         name: "FK_ProfissionalEstabelecimentos_Profissionais_Id_Profissional",
                         column: x => x.Id_Profissional,
                         principalTable: "Profissionais",
-                        principalColumn: "Id",
+                        principalColumn: "CO_Profissional",
                         onDelete: ReferentialAction.Cascade);
                 });
 

@@ -22,7 +22,7 @@ namespace FindDoctorInfra.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // 🧪 Connection string direta aqui só pra teste
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=finddoctor;Username=postgres;Password=senha");
+            optionsBuilder.UseNpgsql("Host=db.oluatrgvuqdcaqvkfmjw.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=senhafinddoctor123");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

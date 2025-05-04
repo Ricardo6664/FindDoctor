@@ -15,7 +15,7 @@ namespace FindDoctorInfra.Data
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
             // Coloque aqui sua connection string do PostgreSQL
-            var connectionString = "Host=localhost;Port=5432;Database=finddoctor;Username=postgres;Password=senha";
+            var connectionString = "Host=db.oluatrgvuqdcaqvkfmjw.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=senhafinddoctor123";
 
             optionsBuilder.UseNpgsql(connectionString, o => o.UseNetTopologySuite());
 

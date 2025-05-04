@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FindDoctorInfra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250420205245_Initial")]
+    [Migration("20250427214034_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -60,7 +60,7 @@ namespace FindDoctorInfra.Migrations
 
             modelBuilder.Entity("FindDoctorDomain.Entities.Estabelecimento", b =>
                 {
-                    b.Property<string>("CodigoCNES")
+                    b.Property<string>("CodigoUnidade")
                         .HasColumnType("text");
 
                     b.Property<string>("Bairro")
@@ -75,7 +75,8 @@ namespace FindDoctorInfra.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CodigoUnidade")
+                    b.Property<string>("CodigoCNES")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Endereco")
@@ -105,7 +106,7 @@ namespace FindDoctorInfra.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("CodigoCNES");
+                    b.HasKey("CodigoUnidade");
 
                     b.ToTable("Estabelecimentos");
                 });
@@ -175,6 +176,9 @@ namespace FindDoctorInfra.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Id_Profissional")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EspecialidadeId")
                         .HasColumnType("text");
 
                     b.HasKey("Id_CNES", "Id_Profissional");

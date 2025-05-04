@@ -45,8 +45,8 @@ namespace FindDoctorInfra.Migrations
                 name: "Estabelecimentos",
                 columns: table => new
                 {
+                    CodigoUnidade = table.Column<string>(type: "text", nullable: false),
                     CodigoCNES = table.Column<string>(type: "text", nullable: false),
-                    CodigoUnidade = table.Column<string>(type: "text", nullable: true),
                     Nome = table.Column<string>(type: "text", nullable: false),
                     CNPJ = table.Column<string>(type: "text", nullable: false),
                     Endereco = table.Column<string>(type: "text", nullable: false),
@@ -60,7 +60,7 @@ namespace FindDoctorInfra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Estabelecimentos", x => x.CodigoCNES);
+                    table.PrimaryKey("PK_Estabelecimentos", x => x.CodigoUnidade);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,7 +108,7 @@ namespace FindDoctorInfra.Migrations
                         name: "FK_HorariosFuncionamento_Estabelecimentos_CodigoCNES",
                         column: x => x.CodigoCNES,
                         principalTable: "Estabelecimentos",
-                        principalColumn: "CodigoCNES",
+                        principalColumn: "CodigoUnidade",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -117,7 +117,8 @@ namespace FindDoctorInfra.Migrations
                 columns: table => new
                 {
                     Id_CNES = table.Column<string>(type: "text", nullable: false),
-                    Id_Profissional = table.Column<string>(type: "text", nullable: false)
+                    Id_Profissional = table.Column<string>(type: "text", nullable: false),
+                    EspecialidadeId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -126,7 +127,7 @@ namespace FindDoctorInfra.Migrations
                         name: "FK_ProfissionalEstabelecimentos_Estabelecimentos_Id_CNES",
                         column: x => x.Id_CNES,
                         principalTable: "Estabelecimentos",
-                        principalColumn: "CodigoCNES",
+                        principalColumn: "CodigoUnidade",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProfissionalEstabelecimentos_Profissionais_Id_Profissional",

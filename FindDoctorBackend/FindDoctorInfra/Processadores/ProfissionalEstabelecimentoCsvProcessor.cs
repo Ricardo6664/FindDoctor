@@ -16,7 +16,7 @@ namespace FindDoctorInfra.Processadores
     {
         private readonly AppDbContext _db;
 
-        public string NomeArquivo => "rlEstabEquipeProf";
+        public string NomeArquivo => "relacao_profissionais_filtrado";
 
         public ProfissionalEstabelecimentoCsvProcessor(AppDbContext db)
         {

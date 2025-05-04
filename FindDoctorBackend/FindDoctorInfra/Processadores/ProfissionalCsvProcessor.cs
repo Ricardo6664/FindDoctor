@@ -15,7 +15,7 @@ namespace FindDoctorInfra.Processadores
     {
         private readonly AppDbContext _db;
 
-        public string NomeArquivo => "tbDadosProfissionalSus";
+        public string NomeArquivo => "cpf_filtrado";
 
         public ProfissionalCsvProcessor(AppDbContext db)
         {

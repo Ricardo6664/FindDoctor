@@ -16,9 +16,10 @@ namespace FindDoctorDomain.ValueObjects
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string UF { get; set; }
-        public bool SUS { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Telefone { get; set; }
+        
+        public List<ProfissionalDTO> Profissionais { get; set; }
     }
 }

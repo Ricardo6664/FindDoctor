@@ -12,6 +12,13 @@ namespace FindDoctorDomain.Interfaces
     {
         Task AdicionarAsync(Estabelecimento est, CancellationToken cancellationToken);
         Task SalvarAsync(CancellationToken cancellationToken);
-        Task<List<EstabelecimentoDTO>> ObterProximosAsync(double latitude, double longitude, double raioKm);
+        Task<List<EstabelecimentoDTO>> ObterProximosAsync(
+            double latitude,
+            double longitude,
+            double raioKm,
+            string especialidadeId = null,
+            string nomeMedico = null,
+            int? convenioId = null
+        );
     }
 }

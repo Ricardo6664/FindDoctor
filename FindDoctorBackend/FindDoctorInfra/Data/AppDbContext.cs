@@ -1,4 +1,5 @@
 ﻿using FindDoctorDomain.Entities;
+using FindDoctorDomain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,17 @@ namespace FindDoctorInfra.Data
         public DbSet<Profissional> Profissionais { get; set; }
         public DbSet<Especialidade> Especialidades { get; set; }
         public DbSet<ProfissionalEstabelecimento> ProfissionalEstabelecimentos { get; set; }
-
+        public DbSet<EstabelecimentoComProfissional> EstabelecimentoComProfissional { get; set; }
+        public DbSet<Convenio> Convenios { get; set; }
+        public DbSet<EstabelecimentoConvenio> EstabelecimentosConvenios { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // 🧪 Connection string direta aqui só pra teste
-            optionsBuilder.UseNpgsql("Host=db.oluatrgvuqdcaqvkfmjw.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=senhafinddoctor123");
+            // Connection string direta aqui só pra teste
+            optionsBuilder.UseNpgsql("Host=db.oluatrgvuqdcaqvkfmjw.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=senhafinddoctor123",
+                o => o.UseNetTopologySuite());
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -64,6 +68,21 @@ namespace FindDoctorInfra.Data
                 .WithMany(e => e.Profissionais)
                 .HasForeignKey(p => p.EspecialidadeId)
                 .IsRequired(false);
+
+            modelBuilder.Entity<EstabelecimentoConvenio>()
+            .HasKey(ec => new { ec.CodigoCNES, ec.ConvenioId });
+
+            modelBuilder.Entity<EstabelecimentoConvenio>()
+                .HasOne(ec => ec.Estabelecimento)
+                .WithMany(e => e.Convenios)
+                .HasForeignKey(ec => ec.CodigoCNES);
+
+            modelBuilder.Entity<EstabelecimentoConvenio>()
+                .HasOne(ec => ec.Convenio)
+                .WithMany(c => c.Convenios)
+                .HasForeignKey(ec => ec.ConvenioId);
+
+            modelBuilder.Entity<EstabelecimentoComProfissional>().HasNoKey();
         }
     }
 

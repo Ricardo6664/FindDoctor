@@ -60,7 +60,6 @@ namespace FindDoctorInfra.Processadores
                         Cidade = colunas[31]?.Trim('"'),
                         UF = colunas[30]?.Trim('"'),
                         Telefone = colunas[16]?.Trim('"'),
-                        SUS = false, // Por enquanto deixei false, essa informacao vem de 
                         Localizacao = _geometryFactory.CreatePoint(new Coordinate(longitude, latitude))
                     };
 

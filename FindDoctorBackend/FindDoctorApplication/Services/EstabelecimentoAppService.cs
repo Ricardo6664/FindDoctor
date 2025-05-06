@@ -20,13 +20,23 @@ namespace FindDoctorApplication.Services
             _geocoding = geocoding;
         }
 
-        public async Task<List<EstabelecimentoDTO>> BuscarProximosAsync(double latitude, double longitude, double raioKm)
+        public async Task<List<EstabelecimentoDTO>> BuscarProximosAsync(
+            double latitude,
+            double longitude,
+            double raioKm,
+            string especialidadeId = null,
+            string nomeMedico = null,
+            int? convenioId = null
+            )
         {
 
             return await _repo.ObterProximosAsync(
                 latitude,
                 longitude,
-                raioKm
+                raioKm,
+                especialidadeId,
+                nomeMedico,
+                convenioId
             );
         }
     }

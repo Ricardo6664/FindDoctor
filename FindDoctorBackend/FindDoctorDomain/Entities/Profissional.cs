@@ -10,7 +10,6 @@ namespace FindDoctorDomain.Entities
     public class Profissional
     {
         
-        public int Id { get; set; }
         [Key]
         public string CO_Profissional { get; set; }
 

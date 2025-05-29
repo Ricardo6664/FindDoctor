@@ -57,8 +57,6 @@ namespace FindDoctorInfra.Processadores
                         Endereco = colunas[7]?.Trim('"'),
                         Numero = colunas[8]?.Trim('"'),
                         Bairro = colunas[10]?.Trim('"'),
-                        Cidade = colunas[31]?.Trim('"'),
-                        UF = colunas[30]?.Trim('"'),
                         Telefone = colunas[16]?.Trim('"'),
                         Localizacao = _geometryFactory.CreatePoint(new Coordinate(longitude, latitude))
                     };

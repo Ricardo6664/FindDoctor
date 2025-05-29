@@ -20,6 +20,12 @@ namespace FindDoctorApplication.Services
             _geocoding = geocoding;
         }
 
+
+        public async Task<EstabelecimentoDTO> GetById(string codigoCNES)
+        {
+            return await _repo.GetByIdAsync(codigoCNES);
+        }
+
         public async Task<List<EstabelecimentoDTO>> BuscarProximosAsync(
             double latitude,
             double longitude,

@@ -52,6 +52,18 @@
         }
       }
     },
+    "/api/Especialidade": {
+      "get": {
+        "tags": [
+          "Especialidade"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Estabelecimento/proximos": {
       "get": {
         "tags": [
@@ -103,6 +115,28 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Estabelecimento/{codigoCNES}": {
+      "get": {
+        "tags": [
+          "Estabelecimento"
+        ],
+        "parameters": [
+          {
+            "name": "codigoCNES",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],

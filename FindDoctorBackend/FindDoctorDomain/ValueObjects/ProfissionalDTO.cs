@@ -12,6 +12,6 @@ namespace FindDoctorDomain.ValueObjects
         public string Nome { get; set; }
         public string CNS { get; set; }
         public bool? SUS { get; set; }
-        public string EspecialidadeId { get; set; }
+        public string EspecialidadeNome { get; set; }
     }
 }

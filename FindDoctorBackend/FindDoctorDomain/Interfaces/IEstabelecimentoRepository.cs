@@ -12,6 +12,7 @@ namespace FindDoctorDomain.Interfaces
     {
         Task AdicionarAsync(Estabelecimento est, CancellationToken cancellationToken);
         Task SalvarAsync(CancellationToken cancellationToken);
+        Task<EstabelecimentoDTO> GetByIdAsync(string codigoCNES);
         Task<List<EstabelecimentoDTO>> ObterProximosAsync(
             double latitude,
             double longitude,

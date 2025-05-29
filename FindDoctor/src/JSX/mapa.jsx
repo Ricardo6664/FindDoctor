@@ -1,16 +1,63 @@
-import '../CSS/mapa.css'
+import { useState, useEffect, useRef } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import '../CSS/mapa.css';
+
+const containerStyle = {
+  width: '1106px',
+  height: '600px'
+};
+
+const defaultCenter = {
+  lat: -22.236353920628613,
+  lng: -49.96302752734856
+};
 
 function Mapa() {
+  const [pontos, setPontos] = useState([]);
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    function handleEstabelecimentosAtualizados(event) {
+      const novosPontos = event.detail;
+      setPontos(novosPontos);
+
+      if (novosPontos.length && mapRef.current) {
+        const bounds = new window.google.maps.LatLngBounds();
+        novosPontos.forEach(ponto => {
+          bounds.extend({ lat: ponto.latitude, lng: ponto.longitude });
+        });
+        mapRef.current.fitBounds(bounds);
+      }
+    }
+
+    window.addEventListener('estabelecimentosAtualizados', handleEstabelecimentosAtualizados);
+    return () => {
+      window.removeEventListener('estabelecimentosAtualizados', handleEstabelecimentosAtualizados);
+    };
+  }, []);
+
   return (
-    <>
-      <div className="mapa_container">
-        <div className="mapa_content">
-            <iframe className="mapa_localizacao" 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7175.925708952284!2d-49.96302752734856!3d-22.236353920628613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94bfd7653ca18ae3%3A0x6de5ac9f185422f1!2sHospital%20Beneficente%20UNIMAR!5e0!3m2!1spt-BR!2sbr!4v1745266033772!5m2!1spt-BR!2sbr" width="1106" height="600"></iframe>
-        </div>
+    <div className="mapa_container">
+      <div className="mapa_content">
+        <LoadScript googleMapsApiKey="AIzaSyAbyVQ7-Ps7svcNGKw43a_BvbZqLM7IXaU">
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={defaultCenter}
+            zoom={14}
+            onLoad={map => (mapRef.current = map)}
+          >
+            {pontos.map((ponto, i) => (
+              <Marker
+                key={i}
+                position={{ lat: ponto.latitude, lng: ponto.longitude }}
+                title={ponto.nome}
+              />
+            ))}
+          </GoogleMap>
+        </LoadScript>
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
-export default Mapa
+export default Mapa;

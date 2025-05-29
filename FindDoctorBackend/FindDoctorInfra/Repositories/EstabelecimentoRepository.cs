@@ -31,6 +31,73 @@ namespace FindDoctorInfra.Repositories
             return _db.SaveChangesAsync(cancellationToken);
         }
 
+        public async Task<EstabelecimentoDTO> GetByIdAsync(string codigoCNES)
+        {
+            var sql = new StringBuilder(@"
+                        SELECT 
+                            e.""CodigoCNES"", e.""Nome"", e.""CNPJ"", e.""Endereco"", e.""Numero"", 
+                            e.""Bairro"", c.""Nome"" AS ""Cidade"", es.""Nome"" AS ""UF"", e.""Localizacao"", e.""Telefone"",
+                            ST_Y(e.""Localizacao""::geometry) AS ""Latitude"",
+                            ST_X(e.""Localizacao""::geometry) AS ""Longitude"",
+                            p.""CO_Profissional"", p.""Nome"" AS ""NomeProf"", p.""CNS"", p.""SUS"", p.""EspecialidadeId""
+                        FROM ""Estabelecimentos"" e
+                        LEFT JOIN ""ProfissionalEstabelecimentos"" pe ON pe.""Id_CNES"" = e.""CodigoUnidade""
+                        LEFT JOIN ""Profissionais"" p ON p.""CO_Profissional"" = pe.""Id_Profissional""
+                        JOIN ""Cidades"" c ON c.""Id"" = e.""Cidade""
+                        JOIN ""Estados"" es ON es.""Id"" = e.""UF""
+                        WHERE e.""CodigoCNES"" = {0}
+                    ");
+
+            var estabelecimentosComProfissionais = await _db
+                .EstabelecimentoComProfissional
+                .FromSqlRaw(sql.ToString(), codigoCNES)
+                .ToListAsync();
+
+            var grupo = estabelecimentosComProfissionais
+                .GroupBy(r => new
+                {
+                    r.CodigoCNES,
+                    r.Nome,
+                    r.CNPJ,
+                    r.Endereco,
+                    r.Numero,
+                    r.Bairro,
+                    r.Cidade,
+                    r.UF,
+                    r.Latitude,
+                    r.Longitude,
+                    r.Telefone
+                })
+                .FirstOrDefault();
+
+            if (grupo == null)
+                return null;
+
+            return new EstabelecimentoDTO
+            {
+                CodigoCNES = grupo.Key.CodigoCNES,
+                Nome = grupo.Key.Nome,
+                CNPJ = grupo.Key.CNPJ,
+                Endereco = grupo.Key.Endereco,
+                Numero = grupo.Key.Numero,
+                Bairro = grupo.Key.Bairro,
+                Cidade = grupo.Key.Cidade,
+                UF = grupo.Key.UF,
+                Latitude = grupo.Key.Latitude,
+                Longitude = grupo.Key.Longitude,
+                Telefone = grupo.Key.Telefone,
+                Profissionais = grupo
+                    .Where(x => x.CO_Profissional != null)
+                    .Select(x => new ProfissionalDTO
+                    {
+                        CO_Profissional = x.CO_Profissional,
+                        Nome = x.NomeProf,
+                        CNS = x.CNS,
+                        SUS = x.SUS
+                    }).ToList()
+            };
+        }
+
         public async Task<List<EstabelecimentoDTO>> ObterProximosAsync(
             double latitude,
             double longitude,
@@ -46,13 +113,16 @@ namespace FindDoctorInfra.Repositories
             var sql = new StringBuilder(@"
                 SELECT 
                     e.""CodigoCNES"", e.""Nome"", e.""CNPJ"", e.""Endereco"", e.""Numero"", 
-                    e.""Bairro"", e.""Cidade"", e.""UF"", e.""Localizacao"", e.""Telefone"",
+                    e.""Bairro"", c.""Nome"" AS ""Cidade"", es.""Nome"" AS ""UF"", e.""Localizacao"", e.""Telefone"",
                     ST_Y(e.""Localizacao""::geometry) AS ""Latitude"",
                     ST_X(e.""Localizacao""::geometry) AS ""Longitude"",
-                    p.""CO_Profissional"", p.""Nome"" AS ""NomeProf"", p.""CNS"", p.""SUS"", p.""EspecialidadeId""
+                    p.""CO_Profissional"", p.""Nome"" AS ""NomeProf"", p.""CNS"", p.""SUS"", esp.""Nome"" AS ""Especialidade""
                 FROM ""Estabelecimentos"" e
                 LEFT JOIN ""ProfissionalEstabelecimentos"" pe ON pe.""Id_CNES"" = e.""CodigoUnidade""
                 LEFT JOIN ""Profissionais"" p ON p.""CO_Profissional"" = pe.""Id_Profissional""
+                LEFT JOIN ""Especialidades"" esp ON p.""EspecialidadeId"" = esp.""Id""
+                JOIN ""Cidades"" c ON c.""Id"" = e.""Cidade""
+                JOIN ""Estados"" es ON es.""Id"" = e.""UF""
                 ");
 
                 if (convenioId != null)
@@ -70,14 +140,31 @@ namespace FindDoctorInfra.Repositories
                 )
             ");
 
-            if (!string.IsNullOrWhiteSpace(nomeMedico))
+            if (!string.IsNullOrWhiteSpace(nomeMedico) || !string.IsNullOrWhiteSpace(especialidadeId))
             {
-                sql.Append(" AND p.\"Nome\" ILIKE {3} ");
-            }
+                sql.Append(" AND EXISTS ( ");
+                sql.Append(" SELECT 1 FROM \"ProfissionalEstabelecimentos\" pe2 ");
+                sql.Append(" JOIN \"Profissionais\" p2 ON p2.\"CO_Profissional\" = pe2.\"Id_Profissional\" ");
 
-            if (!string.IsNullOrWhiteSpace(especialidadeId))
-            {
-                sql.Append(" AND p.\"EspecialidadeId\" = {4} ");
+
+                sql.Append(" WHERE pe2.\"Id_CNES\" = e.\"CodigoUnidade\" ");
+
+                if (!string.IsNullOrWhiteSpace(nomeMedico))
+                {
+                    sql.Append(" AND p2.\"Nome\" ILIKE {3} ");
+                }
+
+                if (!string.IsNullOrWhiteSpace(especialidadeId))
+                {
+                    sql.Append(" AND p2.\"EspecialidadeId\" = {4} ");
+                }
+
+                if (convenioId != null)
+                {
+                    sql.Append(" AND ec2.\"ConvenioId\" = {5} ");
+                }
+
+                sql.Append(" ) ");
             }
 
             if (convenioId != null)
@@ -136,7 +223,7 @@ namespace FindDoctorInfra.Repositories
                             Nome = x.NomeProf,
                             CNS = x.CNS,
                             SUS = x.SUS,
-                            EspecialidadeId = x.EspecialidadeId
+                            EspecialidadeNome = x.Especialidade
                         }).ToList()
                 })
                 .ToList();

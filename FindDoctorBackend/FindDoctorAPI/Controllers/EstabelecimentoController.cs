@@ -35,5 +35,16 @@ namespace FindDoctorAPI.Controllers
 
             return Ok(estabelecimentos);
         }
+
+        [HttpGet("{codigoCNES}")]
+        public async Task<IActionResult> BuscarPorCodigoCNES(string codigoCNES)
+        {
+            var estabelecimento = await _service.GetById(codigoCNES);
+
+            if (estabelecimento == null)
+                return NotFound();
+
+            return Ok(estabelecimento);
+        }
     }
 }

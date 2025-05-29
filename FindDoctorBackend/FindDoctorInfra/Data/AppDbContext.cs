@@ -18,6 +18,8 @@ namespace FindDoctorInfra.Data
         public DbSet<ProfissionalEstabelecimento> ProfissionalEstabelecimentos { get; set; }
         public DbSet<EstabelecimentoComProfissional> EstabelecimentoComProfissional { get; set; }
         public DbSet<Convenio> Convenios { get; set; }
+        public DbSet<Cidade> Cidades { get; set; }
+        public DbSet<Estado> Estados { get; set; }
         public DbSet<EstabelecimentoConvenio> EstabelecimentosConvenios { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 

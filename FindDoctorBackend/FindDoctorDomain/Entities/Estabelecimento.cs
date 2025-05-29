@@ -20,8 +20,8 @@ namespace FindDoctorDomain.Entities
         public string Endereco { get; set; }
         public string Numero { get; set; }
         public string Bairro { get; set; }
-        public string Cidade { get; set; }
-        public string UF { get; set; }
+        public int Cidade { get; set; }
+        public int UF { get; set; }
         public NetTopologySuite.Geometries.Point Localizacao { get; set; }
         public string Telefone { get; set; }
 

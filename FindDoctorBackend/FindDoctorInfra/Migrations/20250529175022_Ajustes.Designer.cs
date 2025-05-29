@@ -3,6 +3,7 @@ using System;
 using FindDoctorInfra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FindDoctorInfra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250529175022_Ajustes")]
+    partial class Ajustes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,8 +105,9 @@ namespace FindDoctorInfra.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Cidade")
-                        .HasColumnType("integer");
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("CodigoCNES")
                         .IsRequired()
@@ -129,8 +133,9 @@ namespace FindDoctorInfra.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UF")
-                        .HasColumnType("integer");
+                    b.Property<string>("UF")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("CodigoUnidade");
 

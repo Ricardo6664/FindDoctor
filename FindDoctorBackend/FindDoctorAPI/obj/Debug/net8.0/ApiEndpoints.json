@@ -26,6 +26,32 @@
     ]
   },
   {
+    "ContainingType": "FindDoctorAPI.Controllers.EspecialidadeController",
+    "Method": "GetAll",
+    "RelativePath": "api/Especialidade",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FindDoctorAPI.Controllers.EstabelecimentoController",
+    "Method": "BuscarPorCodigoCNES",
+    "RelativePath": "api/Estabelecimento/{codigoCNES}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codigoCNES",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FindDoctorAPI.Controllers.EstabelecimentoController",
     "Method": "BuscarProximos",
     "RelativePath": "api/Estabelecimento/proximos",

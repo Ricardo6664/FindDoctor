@@ -12,13 +12,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), npgsqlOptions => npgsqlOptions.UseNetTopologySuite()));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 // Add services to the container.
 builder.Services.AddScoped<IGeocodingService, PhotonGeocodingService>();
 builder.Services.AddScoped<ImportacaoCnesService>();
 builder.Services.AddScoped<AddressAppService>();
 builder.Services.AddHostedService<ImportaCnesHostedService>();
 builder.Services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
+builder.Services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
 builder.Services.AddScoped<EstabelecimentoAppService>();
+builder.Services.AddScoped<EspecialidadeAppService>();
 //builder.Services.AddScoped<ICnesCsvProcessor, ProfissionalEstabelecimentoCsvProcessor>();
 
 builder.Services.AddControllers();
@@ -36,6 +49,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseCors("PermitirFrontend");
 
 app.MapControllers();
 

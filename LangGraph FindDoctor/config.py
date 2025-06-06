@@ -3,10 +3,10 @@ Configurações do bot Telegram FindDoctor
 """
 
 # Token do bot Telegram (substitua pelo seu token do @BotFather)
-TELEGRAM_BOT_TOKEN = "7638182426:AAEfJi_W_3S7Vurv_f3WzerpExLZ_fovp44"
+TELEGRAM_BOT_TOKEN = ""
 
 # Configurações do agente
-DEFAULT_RADIUS_KM = 5
+DEFAULT_RADIUS_KM = 1
 MAX_MESSAGE_LENGTH = 4096
 MAX_RESULTS_PER_MESSAGE = 5
 

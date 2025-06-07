@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FindDoctorInfra")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7adde8fe6854e30e405762b67f8fcf69440d8ec7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26ad935419bcc2a8eb425f020944fea08ed17c29")]
 [assembly: System.Reflection.AssemblyProductAttribute("FindDoctorInfra")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FindDoctorInfra")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

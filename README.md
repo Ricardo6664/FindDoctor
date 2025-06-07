@@ -62,5 +62,4 @@ Este projeto tem como objetivo fornecer um serviço de busca de locais de atendi
 
 ---
 
-## 📝 Licença
-Este projeto está licenciado sob a licença MIT.
+Link do vídeo de explicação técnica: https://youtu.be/sysp09FanyY

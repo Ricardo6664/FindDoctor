@@ -19,7 +19,7 @@ namespace FindDoctorAPI.Controllers
         public async Task<IActionResult> BuscarProximos(
             [FromQuery] double latitude,
             [FromQuery] double longitude,
-            [FromQuery] double raioKm = 5,
+            [FromQuery] double raioKm = 2,
             [FromQuery] string? especialidadeId = null,
             [FromQuery] string? nomeMedico = null,
             [FromQuery] int? convenioId = null

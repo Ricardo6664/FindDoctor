@@ -22,12 +22,6 @@ C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\De
 C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets\msbuild.FindDoctorAPI.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets\msbuild.FindDoctorAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets\msbuild.build.FindDoctorAPI.props
-C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.FindDoctorAPI.props
-C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FindDoctorAPI.props
-C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\FindDoct.68EEAB9E.Up2Date
 C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\FindDoctorAPI.dll
@@ -263,3 +257,8 @@ C:\Users\Interfocus\Downloads\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Deb
 C:\Users\Interfocus\Downloads\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\FindDoctorAPI.genruntimeconfig.cache
 C:\Users\Interfocus\Downloads\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\ref\FindDoctorAPI.dll
 C:\Users\Interfocus\Downloads\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\Tiago Fogolin\Desktop\FindDoctor\FindDoctorBackend\FindDoctorAPI\obj\Debug\net8.0\staticwebassets.build.json.cache

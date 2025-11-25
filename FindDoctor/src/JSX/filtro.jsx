@@ -127,6 +127,7 @@ function Filtro() {
                 onFocus={() => {
                   if (sugestoes.length > 0) setMostrarSugestoes(true);
                 }}
+                
               />
               {mostrarSugestoes && sugestoes.length > 0 && (
                 <ul

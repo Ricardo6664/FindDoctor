@@ -92,7 +92,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "default": 5
+              "default": 2
             }
           },
           {

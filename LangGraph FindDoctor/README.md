@@ -1,6 +1,6 @@
-# 🏥 FindDoctor Bot - Assistente Inteligente para Busca de Profissionais de Saúde
+# 🏥 FindDoctor Bot - Assistente Inteligente para Busca de Profissionais de Saúde e Agendamento de Consultas
 
-Um bot inteligente desenvolvido com **LangGraph** e **OpenAI GPT** para ajudar usuários a encontrar profissionais de saúde e estabelecimentos médicos no Brasil. O projeto oferece tanto uma interface de linha de comando quanto um bot do Telegram.
+Um bot inteligente desenvolvido com **LangGraph** e **OpenAI GPT** para ajudar usuários a encontrar profissionais de saúde, estabelecimentos médicos e **agendar consultas** no Brasil. O projeto oferece tanto uma interface de linha de comando quanto um bot do Telegram.
 
 ## 📋 Índice
 
@@ -24,6 +24,13 @@ Um bot inteligente desenvolvido com **LangGraph** e **OpenAI GPT** para ajudar u
 - **Busca por Nome**: Procure médicos específicos por nome
 - **Detalhes Completos**: Informações detalhadas sobre estabelecimentos (CNES, telefone, endereço)
 - **Geolocalização**: Suporte a coordenadas geográficas para buscas precisas
+
+### 📅 **Agendamento de Consultas** (NOVO!)
+- **Agendar Consultas**: Marque consultas com médicos disponíveis de forma conversacional
+- **Consultar Agendamentos**: Veja todos os seus agendamentos usando seu email
+- **Cancelar Agendamentos**: Cancele consultas de forma simples e rápida
+- **Confirmação Automática**: Receba número de confirmação e detalhes do agendamento
+- **Validação Inteligente**: Sistema verifica disponibilidade e previne conflitos
 
 ### 🤖 **Tecnologias**
 - **LangGraph**: Framework para criação de agentes conversacionais
@@ -239,6 +246,94 @@ Bot: 🏥 Estabelecimentos encontrados:
 📍 Av. Paulista, 2001 - Bela Vista
 📏 Distância: 0.5 km
 📞 (11) 2151-1233
+```
+
+### 📅 **Agendamento de Consulta** (NOVO!)
+```
+Usuário: "Quero agendar uma consulta"
+
+Bot: Claro! Vou te ajudar a agendar. Primeiro, me diga:
+- Qual especialidade você precisa?
+- Qual sua localização?
+
+Usuário: "Cardiologista em Marília"
+
+Bot: Encontrei os seguintes médicos disponíveis para agendamento:
+
+1. **Dr. João Silva** - Cardiologia
+   🏥 Clínica Saúde Total
+   📋 CRM: 123456-SP
+
+2. **Dra. Maria Santos** - Pediatria
+   🏥 Clínica Saúde Total
+   📋 CRM: 234567-SP
+
+Qual médico você prefere? (Digite o número ou nome)
+
+Usuário: "Dr. João Silva"
+
+Bot: Perfeito! Agora preciso de algumas informações:
+- Seu nome completo
+- Seu email
+- Seu telefone com DDD
+- Data desejada (ex: 2025-12-15)
+- Horário desejado (ex: 14:30)
+
+Usuário: "João da Silva, joao@email.com, (14) 98765-4321, 2025-12-10, 14:30"
+
+Bot: ✅ Consulta agendada com sucesso!
+
+📋 **Detalhes do Agendamento:**
+🆔 Número: #123
+👤 Paciente: João da Silva
+👨‍⚕️ Médico: Dr. João Silva - Cardiologia
+📅 Data: 10/12/2025
+⏰ Horário: 14:30
+🏥 Local: Clínica Saúde Total
+
+📧 Um email de confirmação foi enviado para joao@email.com
+💡 Para consultar ou cancelar, use seu email.
+```
+
+### 📋 **Consultar Meus Agendamentos**
+```
+Usuário: "Quero ver meus agendamentos"
+
+Bot: Por favor, me informe seu email para consultar.
+
+Usuário: "joao@email.com"
+
+Bot: 📋 **Seus Agendamentos:**
+
+1. **Agendamento #123** ✅ Agendada
+   👨‍⚕️ Dr. João Silva - Cardiologia
+   🏥 Clínica Saúde Total
+   📅 10/12/2025 às 14:30
+
+2. **Agendamento #456** ✅ Confirmada
+   👨‍⚕️ Dra. Ana Costa - Oftalmologia
+   🏥 Hospital São Lucas
+   📅 15/12/2025 às 10:00
+
+Deseja cancelar alguma consulta?
+```
+
+### ❌ **Cancelar Agendamento**
+```
+Usuário: "Quero cancelar a consulta #123"
+
+Bot: Para confirmar o cancelamento, preciso do seu email.
+
+Usuário: "joao@email.com"
+
+Bot: ✅ Agendamento #123 cancelado com sucesso!
+
+📋 **Consulta Cancelada:**
+📅 Data: 10/12/2025
+⏰ Horário: 14:30
+👨‍⚕️ Médico: Dr. João Silva
+
+Se precisar reagendar, é só me avisar!
 ```
 
 ### 👨‍⚕️ **Busca por Médico Específico**

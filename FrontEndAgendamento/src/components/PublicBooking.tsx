@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar } from './ui/calendar';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Textarea } from './ui/textarea';
 import { Calendar as CalendarIcon, Clock, User, Phone, Mail, LayoutDashboard } from 'lucide-react';
 import { toast } from 'sonner@2.0.3';
+import * as api from '../services/api';
 
 interface Establishment {
   id: string;
@@ -37,8 +38,31 @@ export function PublicBooking({ establishment, onNavigateToDashboard }: PublicBo
   const [patientEmail, setPatientEmail] = useState('');
   const [patientPhone, setPatientPhone] = useState('');
   const [notes, setNotes] = useState('');
+  const [doctors, setDoctors] = useState<api.Doctor[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Carregar médicos da API
+  useEffect(() => {
+    const loadDoctors = async () => {
+      setLoading(true);
+      try {
+        const data = await api.listDoctors();
+        // Filtrar médicos do estabelecimento atual
+        const filtered = data.filter(d => d.establishment_id === establishment.id && d.is_active);
+        setDoctors(filtered);
+      } catch (err) {
+        console.error('Erro ao carregar médicos:', err);
+        toast.error('Erro ao carregar lista de médicos');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDoctors();
+  }, [establishment.id]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!date || !selectedTime || !selectedDoctor || !patientName || !patientEmail || !patientPhone) {
@@ -46,18 +70,36 @@ export function PublicBooking({ establishment, onNavigateToDashboard }: PublicBo
       return;
     }
 
-    // Mock booking submission
-    toast.success('Consulta agendada com sucesso!', {
-      description: `${patientName}, sua consulta está marcada para ${date.toLocaleDateString('pt-BR')} às ${selectedTime}`,
-    });
+    setSubmitting(true);
+    try {
+      const appointmentDate = date.toISOString().split('T')[0]; // YYYY-MM-DD
+      await api.createAppointment({
+        doctor_id: parseInt(selectedDoctor),
+        patient_name: patientName,
+        patient_email: patientEmail,
+        patient_phone: patientPhone,
+        appointment_date: appointmentDate,
+        appointment_time: selectedTime,
+        notes: notes || undefined,
+      });
 
-    // Reset form
-    setSelectedTime('');
-    setSelectedDoctor('');
-    setPatientName('');
-    setPatientEmail('');
-    setPatientPhone('');
-    setNotes('');
+      toast.success('Consulta agendada com sucesso!', {
+        description: `${patientName}, sua consulta está marcada para ${date.toLocaleDateString('pt-BR')} às ${selectedTime}`,
+      });
+
+      // Reset form
+      setSelectedTime('');
+      setSelectedDoctor('');
+      setPatientName('');
+      setPatientEmail('');
+      setPatientPhone('');
+      setNotes('');
+    } catch (err) {
+      console.error('Erro ao agendar consulta:', err);
+      toast.error('Erro ao agendar consulta. Tente novamente.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -150,14 +192,14 @@ export function PublicBooking({ establishment, onNavigateToDashboard }: PublicBo
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="doctor">Médico *</Label>
-                    <Select value={selectedDoctor} onValueChange={setSelectedDoctor}>
+                    <Select value={selectedDoctor} onValueChange={setSelectedDoctor} disabled={loading || doctors.length === 0}>
                       <SelectTrigger id="doctor">
-                        <SelectValue placeholder="Selecione um médico" />
+                        <SelectValue placeholder={loading ? "Carregando médicos..." : "Selecione um médico"} />
                       </SelectTrigger>
                       <SelectContent>
-                        {establishment.doctors.map((doctor) => (
-                          <SelectItem key={doctor} value={doctor}>
-                            {doctor}
+                        {doctors.map((doctor) => (
+                          <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                            {doctor.name} - {doctor.specialty}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -250,8 +292,8 @@ export function PublicBooking({ establishment, onNavigateToDashboard }: PublicBo
                     </div>
                   )}
 
-                  <Button type="submit" className="w-full">
-                    Confirmar Agendamento
+                  <Button type="submit" className="w-full" disabled={submitting}>
+                    {submitting ? 'Agendando...' : 'Confirmar Agendamento'}
                   </Button>
                 </form>
               </CardContent>

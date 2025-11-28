@@ -1,11 +1,70 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Star, Phone, Clock, MapPin, Users, Building, FileText, Edit } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { MedicalEstablishment } from '../App';
 import { EditEstablishmentDialog } from './EditEstablishmentDialog';
+
+// Component for the map to ensure proper initialization
+function EstablishmentMap({ establishment }: { establishment: MedicalEstablishment }) {
+  const mapRef = useRef<any>(null);
+
+  useEffect(() => {
+    // Force map to invalidate size after render
+    if (mapRef.current) {
+      setTimeout(() => {
+        mapRef.current?.invalidateSize();
+      }, 100);
+    }
+  }, []);
+
+  return (
+    <MapContainer
+      center={[establishment.latitude, establishment.longitude]}
+      zoom={16}
+      style={{ height: '100%', width: '100%', minHeight: '400px' }}
+      scrollWheelZoom={true}
+      ref={mapRef}
+      whenReady={() => {
+        // Ensure map is properly sized when ready
+        setTimeout(() => {
+          mapRef.current?.invalidateSize();
+        }, 100);
+      }}
+    >
+      {/* OpenStreetMap tiles - Free and Open Source */}
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      
+      {/* Marker for the establishment */}
+      <Marker position={[establishment.latitude, establishment.longitude]}>
+        <Popup>
+          <div className="p-2">
+            <h3 className="font-semibold text-sm mb-1">{establishment.name}</h3>
+            <p className="text-xs text-muted-foreground mb-2">{establishment.address}</p>
+            {establishment.phone && (
+              <p className="text-xs">
+                <strong>Tel:</strong> {establishment.phone}
+              </p>
+            )}
+            {establishment.rating && (
+              <p className="text-xs">
+                <strong>Avaliação:</strong> ⭐ {establishment.rating} ({establishment.reviewCount} avaliações)
+              </p>
+            )}
+          </div>
+        </Popup>
+      </Marker>
+    </MapContainer>
+  );
+}
 
 interface EstablishmentDetailsProps {
   establishment: MedicalEstablishment;
@@ -100,25 +159,8 @@ export function EstablishmentDetails({ establishment, onBack }: EstablishmentDet
 
           {/* Map */}
           <Card className="p-0 overflow-hidden shadow-sm border-border">
-            <div className="relative w-full h-[300px] bg-secondary/30">
-              <div 
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `
-                    linear-gradient(rgba(17, 108, 194, 0.1) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(17, 108, 194, 0.1) 1px, transparent 1px)
-                  `,
-                  backgroundSize: '50px 50px',
-                  backgroundColor: '#e3f2fd'
-                }}
-              >
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-full">
-                  <MapPin className="w-12 h-12 text-destructive drop-shadow-lg" fill="#dc2626" />
-                </div>
-                <div className="absolute bottom-4 left-4 bg-white p-3 rounded-lg shadow-lg border border-border">
-                  <p className="text-sm">{establishment.address}</p>
-                </div>
-              </div>
+            <div className="w-full h-[400px]">
+              <EstablishmentMap establishment={establishment} />
             </div>
           </Card>
         </div>

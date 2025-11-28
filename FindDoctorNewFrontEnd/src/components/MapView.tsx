@@ -1,91 +1,123 @@
-import { useEffect, useRef, useState } from 'react';
-import { MapPin } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { MedicalEstablishment } from '../App';
+
+// Fix for default marker icons in React-Leaflet
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  iconRetinaUrl: iconRetina,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
+// Custom icon for selected markers
+const selectedIcon = L.icon({
+  iconUrl: icon,
+  iconRetinaUrl: iconRetina,
+  shadowUrl: iconShadow,
+  iconSize: [35, 57],
+  iconAnchor: [17, 57],
+  popupAnchor: [1, -44],
+  shadowSize: [57, 57],
+  className: 'selected-marker'
+});
 
 interface MapViewProps {
   establishments: MedicalEstablishment[];
   onSelectEstablishment: (establishment: MedicalEstablishment) => void;
 }
 
-export function MapView({ establishments, onSelectEstablishment }: MapViewProps) {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+// Component to handle map updates
+function MapUpdater({ establishments }: { establishments: MedicalEstablishment[] }) {
+  const map = useMap();
 
+  useEffect(() => {
+    if (establishments.length > 0) {
+      const bounds = L.latLngBounds(
+        establishments.map(est => [est.latitude, est.longitude] as [number, number])
+      );
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
+    }
+  }, [establishments, map]);
+
+  return null;
+}
+
+export function MapView({ establishments, onSelectEstablishment }: MapViewProps) {
   // Calculate center of all establishments
-  const center = establishments.length > 0
-    ? {
-        lat: establishments.reduce((sum, e) => sum + e.latitude, 0) / establishments.length,
-        lng: establishments.reduce((sum, e) => sum + e.longitude, 0) / establishments.length,
-      }
-    : { lat: -23.561684, lng: -46.655981 }; // Default to São Paulo
+  const center: [number, number] = establishments.length > 0
+    ? [
+        establishments.reduce((sum, e) => sum + e.latitude, 0) / establishments.length,
+        establishments.reduce((sum, e) => sum + e.longitude, 0) / establishments.length,
+      ]
+    : [-23.561684, -46.655981]; // Default to São Paulo
 
   return (
-    <div className="relative w-full h-[500px] bg-secondary/30">
-      {/* Map visualization using CSS and HTML (simplified version) */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div 
-          className="relative w-full h-full"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(17, 108, 194, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(17, 108, 194, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px',
-            backgroundColor: '#e3f2fd'
-          }}
-        >
-          {/* Map markers */}
-          {establishments.map((est, index) => {
-            // Simple positioning based on lat/lng relative to center
-            const offsetX = (est.longitude - center.lng) * 8000 + 50;
-            const offsetY = (center.lat - est.latitude) * 8000 + 50;
-            
-            return (
-              <div
-                key={est.id}
-                className="absolute transform -translate-x-1/2 -translate-y-full cursor-pointer transition-all hover:scale-110"
-                style={{
-                  left: `calc(50% + ${offsetX}%)`,
-                  top: `calc(50% + ${offsetY}%)`,
-                }}
-                onClick={() => {
-                  setSelectedId(est.id);
-                  onSelectEstablishment(est);
-                }}
-              >
-                <div className="relative">
-                  <MapPin 
-                    className={`w-8 h-8 ${selectedId === est.id ? 'text-destructive' : 'text-primary'} drop-shadow-lg`}
-                    fill={selectedId === est.id ? '#dc2626' : '#116cc2'}
-                  />
-                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-white px-2 py-1 rounded shadow-lg text-sm opacity-0 hover:opacity-100 transition-opacity border border-border">
-                    {est.name}
-                  </div>
-                </div>
+    <div className="relative w-full h-[500px] rounded-lg overflow-hidden shadow-lg border border-border">
+      <MapContainer
+        center={center}
+        zoom={13}
+        style={{ height: '100%', width: '100%' }}
+        scrollWheelZoom={true}
+      >
+        {/* OpenStreetMap tiles - Free and Open Source */}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        
+        <MapUpdater establishments={establishments} />
+        
+        {/* Markers for each establishment */}
+        {establishments.map((est) => (
+          <Marker
+            key={est.id}
+            position={[est.latitude, est.longitude]}
+            eventHandlers={{
+              click: () => {
+                onSelectEstablishment(est);
+              },
+            }}
+          >
+            <Popup>
+              <div className="p-2">
+                <h3 className="font-semibold text-sm mb-1">{est.name}</h3>
+                <p className="text-xs text-muted-foreground mb-2">{est.address}</p>
+                {est.phone && (
+                  <p className="text-xs">
+                    <strong>Tel:</strong> {est.phone}
+                  </p>
+                )}
+                {est.rating && (
+                  <p className="text-xs">
+                    <strong>Avaliação:</strong> ⭐ {est.rating} ({est.reviewCount} avaliações)
+                  </p>
+                )}
               </div>
-            );
-          })}
-          
-          {/* Legend */}
-          <div className="absolute bottom-4 left-4 bg-white p-3 rounded-lg shadow-lg border border-border">
-            <div className="flex items-center gap-2 mb-1">
-              <MapPin className="w-4 h-4 text-primary" fill="#116cc2" />
-              <span className="text-sm">Estabelecimento</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-destructive" fill="#dc2626" />
-              <span className="text-sm">Selecionado</span>
-            </div>
-          </div>
-
-          {/* Info box */}
-          <div className="absolute top-4 left-4 bg-white p-3 rounded-lg shadow-lg border border-border">
-            <p className="text-sm">
+            </Popup>
+          </Marker>
+        ))}
+        
+        {/* Information about the count */}
+        <div className="leaflet-bottom leaflet-left" style={{ marginLeft: '10px', marginBottom: '30px' }}>
+          <div className="leaflet-control bg-white p-2 rounded shadow-md border border-border">
+            <span className="text-sm font-medium">
               {establishments.length} estabelecimento(s) no mapa
-            </p>
+            </span>
           </div>
         </div>
-      </div>
+      </MapContainer>
     </div>
   );
 }

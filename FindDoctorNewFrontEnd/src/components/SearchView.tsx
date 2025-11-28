@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -8,8 +8,9 @@ import { Card } from './ui/card';
 import { MapView } from './MapView';
 import { ResultsTable } from './ResultsTable';
 import { MedicalEstablishment } from '../App';
+import * as api from '../services/api';
 
-// Mock data
+// Mock data (removido em produção)
 const mockEstablishments: MedicalEstablishment[] = [
   {
     id: '1',
@@ -92,6 +93,24 @@ export function SearchView({ onViewDetails }: SearchViewProps) {
   const [doctorName, setDoctorName] = useState('');
   const [specialty, setSpecialty] = useState('all');
   const [insurance, setInsurance] = useState('all');
+  const [establishments, setEstablishments] = useState<MedicalEstablishment[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [specialtiesList, setSpecialtiesList] = useState<api.Specialty[]>([]);
+
+  // Carregar especialidades
+  useEffect(() => {
+    const loadSpecialties = async () => {
+      try {
+        const specs = await api.getSpecialties();
+        setSpecialtiesList(specs);
+      } catch (err) {
+        console.error('Erro ao carregar especialidades:', err);
+      }
+    };
+    
+    loadSpecialties();
+  }, []);
 
   // Get unique specialties and insurances for filters
   const allSpecialties = useMemo(() => {
@@ -106,20 +125,73 @@ export function SearchView({ onViewDetails }: SearchViewProps) {
     return Array.from(insurances).sort();
   }, []);
 
+  // Buscar estabelecimentos
+  const handleSearch = async () => {
+    if (!address.trim()) {
+      setError('Por favor, digite um endereço');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      // 1. Buscar coordenadas do endereço
+      const addressResults = await api.searchAddress(address);
+      
+      if (addressResults.length === 0) {
+        setError('Endereço não encontrado');
+        setEstablishments([]);
+        return;
+      }
+
+      const { latitude, longitude } = addressResults[0].location;
+
+      // 2. Buscar estabelecimentos próximos
+      const specialtyId = specialty !== 'all' ? specialty : undefined;
+      const results = await api.searchEstablishments(
+        latitude,
+        longitude,
+        2, // 1km de raio
+        specialtyId,
+        doctorName || undefined
+      );
+
+      // 3. Transformar para o formato esperado
+      const transformed: MedicalEstablishment[] = results.map((est) => ({
+        id: est.codigoCNES,
+        name: est.nome,
+        address: `${est.endereco || ''}, ${est.numero || ''} - ${est.bairro || ''}, ${est.cidade || ''} - ${est.uf || ''}`.trim(),
+        latitude: est.latitude,
+        longitude: est.longitude,
+        doctors: est.profissionais?.map(p => p.nome) || [],
+        specialties: [...new Set(est.profissionais?.map(p => p.especialidadeNome).filter(Boolean) || [])],
+        insurances: [], // TODO: Adicionar quando disponível
+        phone: est.telefone || 'Não informado',
+        hours: 'Consulte o estabelecimento',
+        rating: 0,
+        reviewCount: 0,
+      }));
+
+      setEstablishments(transformed);
+    } catch (err) {
+      console.error('Erro na busca:', err);
+      setError('Erro ao buscar estabelecimentos. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Filter establishments
   const filteredEstablishments = useMemo(() => {
-    return mockEstablishments.filter(est => {
-      // Filter by address
-      if (address && !est.address.toLowerCase().includes(address.toLowerCase())) {
-        return false;
-      }
-      // Filter by doctor name
-      if (doctorName && !est.doctors.some(doc => doc.toLowerCase().includes(doctorName.toLowerCase()))) {
-        return false;
-      }
-      // Filter by specialty
-      if (specialty !== 'all' && !est.specialties.includes(specialty)) {
-        return false;
+    const dataSource = establishments.length > 0 ? establishments : mockEstablishments;
+    
+    return dataSource.filter(est => {
+      // Filter by doctor name (se já não foi aplicado na busca)
+      if (doctorName && establishments.length === 0) {
+        if (!est.doctors.some(doc => doc.toLowerCase().includes(doctorName.toLowerCase()))) {
+          return false;
+        }
       }
       // Filter by insurance
       if (insurance !== 'all' && !est.insurances.includes(insurance)) {
@@ -127,7 +199,7 @@ export function SearchView({ onViewDetails }: SearchViewProps) {
       }
       return true;
     });
-  }, [address, doctorName, specialty, insurance]);
+  }, [establishments, doctorName, insurance]);
 
   return (
     <div className="space-y-6">
@@ -142,11 +214,17 @@ export function SearchView({ onViewDetails }: SearchViewProps) {
                 placeholder="Digite o endereço, bairro ou cidade..."
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 className="flex-1 border-border"
+                disabled={loading}
               />
-              <Button className="gap-2 bg-primary hover:bg-accent">
+              <Button 
+                className="gap-2 bg-primary hover:bg-accent"
+                onClick={handleSearch}
+                disabled={loading}
+              >
                 <Search className="w-4 h-4" />
-                Buscar
+                {loading ? 'Buscando...' : 'Buscar'}
               </Button>
             </div>
           </div>
@@ -171,9 +249,15 @@ export function SearchView({ onViewDetails }: SearchViewProps) {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Todas as Especialidades</SelectItem>
-                  {allSpecialties.map(spec => (
-                    <SelectItem key={spec} value={spec}>{spec}</SelectItem>
-                  ))}
+                  {specialtiesList.length > 0 ? (
+                    specialtiesList.map(spec => (
+                      <SelectItem key={spec.id} value={spec.id}>{spec.nome}</SelectItem>
+                    ))
+                  ) : (
+                    allSpecialties.map(spec => (
+                      <SelectItem key={spec} value={spec}>{spec}</SelectItem>
+                    ))
+                  )}
                 </SelectContent>
               </Select>
             </div>
@@ -205,11 +289,20 @@ export function SearchView({ onViewDetails }: SearchViewProps) {
       <Card className="p-6 shadow-sm border-border">
         <div className="mb-4">
           <h2 className="text-primary">Resultados da Busca</h2>
+          {error && (
+            <p className="text-destructive mb-2">{error}</p>
+          )}
           <p className="text-muted-foreground">
             {filteredEstablishments.length} estabelecimento(s) encontrado(s)
           </p>
         </div>
-        <ResultsTable establishments={filteredEstablishments} onViewDetails={onViewDetails} />
+        {loading ? (
+          <div className="text-center py-8">
+            <p className="text-muted-foreground">Buscando estabelecimentos...</p>
+          </div>
+        ) : (
+          <ResultsTable establishments={filteredEstablishments} onViewDetails={onViewDetails} />
+        )}
       </Card>
     </div>
   );

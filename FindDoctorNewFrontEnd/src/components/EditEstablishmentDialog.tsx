@@ -8,6 +8,7 @@ import { Button } from './ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Alert, AlertDescription } from './ui/alert';
 import { MedicalEstablishment } from '../App';
+import * as api from '../services/api';
 
 interface EditEstablishmentDialogProps {
   establishment: MedicalEstablishment;
@@ -21,6 +22,8 @@ export function EditEstablishmentDialog({ establishment, open, onOpenChange }: E
   const [suggestedValue, setSuggestedValue] = useState('');
   const [submitterName, setSubmitterName] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fields = [
     { value: 'name', label: 'Nome do Estabelecimento' },
@@ -65,29 +68,41 @@ export function EditEstablishmentDialog({ establishment, open, onOpenChange }: E
     setSuggestedValue('');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // In a real app, this would send to backend
-    console.log('Edit suggestion submitted:', {
-      establishmentId: establishment.id,
-      field,
-      currentValue,
-      suggestedValue,
-      submitterName,
-    });
+    setSubmitting(true);
+    setError(null);
     
-    setSubmitted(true);
-    
-    // Reset form after 2 seconds
-    setTimeout(() => {
-      setSubmitted(false);
-      setField('');
-      setCurrentValue('');
-      setSuggestedValue('');
-      setSubmitterName('');
-      onOpenChange(false);
-    }, 2000);
+    try {
+      // Enviar para a API Python
+      await api.createEditSuggestion({
+        establishment_id: establishment.id,
+        establishment_name: establishment.name,
+        field: field,
+        current_value: currentValue,
+        suggested_value: suggestedValue,
+        submitted_by: submitterName || 'Anônimo',
+      });
+      
+      setSubmitted(true);
+      
+      // Reset form after 2 seconds
+      setTimeout(() => {
+        setSubmitted(false);
+        setField('');
+        setCurrentValue('');
+        setSuggestedValue('');
+        setSubmitterName('');
+        setError(null);
+        onOpenChange(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Erro ao enviar sugestão:', err);
+      setError('Erro ao enviar sugestão. Tente novamente.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -109,6 +124,13 @@ export function EditEstablishmentDialog({ establishment, open, onOpenChange }: E
           </Alert>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <Alert className="bg-red-50 border-red-200">
+                <AlertDescription className="text-red-800">
+                  {error}
+                </AlertDescription>
+              </Alert>
+            )}
             <div>
               <Label htmlFor="establishment">Estabelecimento</Label>
               <Input
@@ -176,11 +198,11 @@ export function EditEstablishmentDialog({ establishment, open, onOpenChange }: E
                 </div>
 
                 <div className="flex justify-end gap-2 pt-4">
-                  <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+                  <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={submitting}>
                     Cancelar
                   </Button>
-                  <Button type="submit" disabled={!suggestedValue}>
-                    Enviar Sugestão
+                  <Button type="submit" disabled={!suggestedValue || submitting}>
+                    {submitting ? 'Enviando...' : 'Enviar Sugestão'}
                   </Button>
                 </div>
               </>

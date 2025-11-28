@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { Badge } from './ui/badge';
 import { ArrowLeft, Calendar, Users, TrendingUp, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import * as api from '../services/api';
 import {
   LineChart,
   Line,
@@ -127,8 +128,10 @@ const getStatusBadge = (status: string) => {
   switch (status) {
     case 'confirmed':
       return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Confirmada</Badge>;
-    case 'pending':
-      return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Pendente</Badge>;
+    case 'scheduled':
+      return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Agendada</Badge>;
+    case 'completed':
+      return <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">Realizada</Badge>;
     case 'cancelled':
       return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Cancelada</Badge>;
     default:
@@ -139,18 +142,66 @@ const getStatusBadge = (status: string) => {
 export function DoctorDashboard({ establishment, onBack }: DoctorDashboardProps) {
   const [filterDoctor, setFilterDoctor] = useState<string>('all');
   const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [appointments, setAppointments] = useState<api.Appointment[]>([]);
+  const [doctors, setDoctors] = useState<api.Doctor[]>([]);
+  const [dashboardStats, setDashboardStats] = useState<api.DashboardStats | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const filteredAppointments = mockAppointments.filter((apt) => {
-    const matchesDoctor = filterDoctor === 'all' || apt.doctor === filterDoctor;
+  // Carregar dados da API
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        const appointmentsData = await api.listAppointments();
+        const doctorsData = await api.listDoctors();
+        
+        // Filtrar médicos do estabelecimento
+        const establishmentDoctors = doctorsData.filter(d => d.establishment_id === establishment.id);
+        const doctorIds = establishmentDoctors.map(d => d.id);
+        
+        // Filtrar agendamentos apenas dos médicos deste estabelecimento
+        const establishmentAppointments = appointmentsData.filter(apt => 
+          doctorIds.includes(apt.doctor_id)
+        );
+        
+        setAppointments(establishmentAppointments);
+        setDoctors(establishmentDoctors);
+        setDashboardStats(null);
+      } catch (err) {
+        console.error('Erro ao carregar dados:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [establishment.id]);
+
+  const handleStatusChange = async (appointmentId: number, newStatus: 'confirmed' | 'completed' | 'cancelled') => {
+    try {
+      await api.updateAppointmentStatus(appointmentId, { status: newStatus });
+      // Atualizar localmente
+      setAppointments(prev =>
+        prev.map(apt => apt.id === appointmentId ? { ...apt, status: newStatus } : apt)
+      );
+    } catch (err) {
+      console.error('Erro ao atualizar status:', err);
+    }
+  };
+
+  const filteredAppointments = appointments.filter((apt) => {
+    const matchesDoctor = filterDoctor === 'all' || apt.doctor_id.toString() === filterDoctor;
     const matchesStatus = filterStatus === 'all' || apt.status === filterStatus;
     return matchesDoctor && matchesStatus;
   });
 
-  const stats = {
-    total: mockAppointments.length,
-    confirmed: mockAppointments.filter((a) => a.status === 'confirmed').length,
-    pending: mockAppointments.filter((a) => a.status === 'pending').length,
-    cancelled: mockAppointments.filter((a) => a.status === 'cancelled').length,
+  const stats = dashboardStats || {
+    total_appointments: appointments.length,
+    scheduled: appointments.filter(a => a.status === 'scheduled').length,
+    confirmed: appointments.filter(a => a.status === 'confirmed').length,
+    completed: appointments.filter(a => a.status === 'completed').length,
+    cancelled: appointments.filter(a => a.status === 'cancelled').length,
+    appointments_by_doctor: [],
   };
 
   return (
@@ -199,7 +250,7 @@ export function DoctorDashboard({ establishment, onBack }: DoctorDashboardProps)
                   <Calendar className="h-4 w-4 text-gray-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl">{stats.total}</div>
+                  <div className="text-2xl">{stats.total_appointments}</div>
                   <p className="text-xs text-gray-500 mt-1">Todos os agendamentos</p>
                 </CardContent>
               </Card>
@@ -217,11 +268,11 @@ export function DoctorDashboard({ establishment, onBack }: DoctorDashboardProps)
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm">Pendentes</CardTitle>
+                  <CardTitle className="text-sm">Agendadas</CardTitle>
                   <AlertCircle className="h-4 w-4 text-yellow-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl">{stats.pending}</div>
+                  <div className="text-2xl">{stats.scheduled}</div>
                   <p className="text-xs text-gray-500 mt-1">Aguardando confirmação</p>
                 </CardContent>
               </Card>
@@ -253,9 +304,9 @@ export function DoctorDashboard({ establishment, onBack }: DoctorDashboardProps)
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">Todos os médicos</SelectItem>
-                        {establishment.doctors.map((doctor) => (
-                          <SelectItem key={doctor} value={doctor}>
-                            {doctor}
+                        {doctors.map((doctor) => (
+                          <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                            {doctor.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -267,8 +318,9 @@ export function DoctorDashboard({ establishment, onBack }: DoctorDashboardProps)
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">Todos os status</SelectItem>
+                        <SelectItem value="scheduled">Agendadas</SelectItem>
                         <SelectItem value="confirmed">Confirmadas</SelectItem>
-                        <SelectItem value="pending">Pendentes</SelectItem>
+                        <SelectItem value="completed">Realizadas</SelectItem>
                         <SelectItem value="cancelled">Canceladas</SelectItem>
                       </SelectContent>
                     </Select>
@@ -289,44 +341,77 @@ export function DoctorDashboard({ establishment, onBack }: DoctorDashboardProps)
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredAppointments.map((appointment) => (
-                      <TableRow key={appointment.id}>
-                        <TableCell>
-                          <div>
-                            <div>{appointment.patientName}</div>
-                            <div className="text-sm text-gray-500">{appointment.email}</div>
-                          </div>
-                        </TableCell>
-                        <TableCell>{appointment.doctor}</TableCell>
-                        <TableCell>
-                          {new Date(appointment.date).toLocaleDateString('pt-BR')}
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-3 w-3" />
-                            {appointment.time}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="text-sm">{appointment.phone}</div>
-                        </TableCell>
-                        <TableCell>{getStatusBadge(appointment.status)}</TableCell>
-                        <TableCell>
-                          <div className="flex gap-2">
-                            {appointment.status === 'pending' && (
-                              <Button size="sm" variant="outline">
-                                Confirmar
-                              </Button>
-                            )}
-                            {appointment.status !== 'cancelled' && (
-                              <Button size="sm" variant="ghost">
-                                Cancelar
-                              </Button>
-                            )}
-                          </div>
+                    {loading ? (
+                      <TableRow>
+                        <TableCell colSpan={7} className="text-center text-gray-500">
+                          Carregando consultas...
                         </TableCell>
                       </TableRow>
-                    ))}
+                    ) : filteredAppointments.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={7} className="text-center text-gray-500">
+                          Nenhuma consulta encontrada
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      filteredAppointments.map((appointment) => (
+                        <TableRow key={appointment.id}>
+                          <TableCell>
+                            <div>
+                              <div>{appointment.patient_name}</div>
+                              <div className="text-sm text-gray-500">{appointment.patient_email}</div>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            {appointment.doctor?.name || 'N/A'}
+                          </TableCell>
+                          <TableCell>
+                            {new Date(appointment.appointment_date).toLocaleDateString('pt-BR')}
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              {appointment.appointment_time}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="text-sm">{appointment.patient_phone}</div>
+                          </TableCell>
+                          <TableCell>{getStatusBadge(appointment.status)}</TableCell>
+                          <TableCell>
+                            <div className="flex gap-2">
+                              {appointment.status === 'scheduled' && (
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => handleStatusChange(appointment.id, 'confirmed')}
+                                >
+                                  Confirmar
+                                </Button>
+                              )}
+                              {appointment.status === 'confirmed' && (
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => handleStatusChange(appointment.id, 'completed')}
+                                >
+                                  Concluir
+                                </Button>
+                              )}
+                              {appointment.status !== 'cancelled' && appointment.status !== 'completed' && (
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost"
+                                  onClick={() => handleStatusChange(appointment.id, 'cancelled')}
+                                >
+                                  Cancelar
+                                </Button>
+                              )}
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    )}
                   </TableBody>
                 </Table>
               </CardContent>

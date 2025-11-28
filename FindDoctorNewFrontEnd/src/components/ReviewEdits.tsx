@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowLeft, Check, X, Clock, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
@@ -7,110 +7,103 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Alert, AlertDescription } from './ui/alert';
 import { Separator } from './ui/separator';
 import { EditSuggestion } from '../App';
+import * as api from '../services/api';
 
 interface ReviewEditsProps {
   onBack: () => void;
 }
 
-// Mock data for edit suggestions
-const mockEditSuggestions: EditSuggestion[] = [
-  {
-    id: '1',
-    establishmentId: '1',
-    establishmentName: 'Clínica São Lucas',
-    field: 'phone',
-    currentValue: '(11) 3000-0001',
-    suggestedValue: '(11) 3000-0010',
-    submittedBy: 'João Silva',
-    submittedAt: '2025-11-05T14:30:00',
-    status: 'pending',
-  },
-  {
-    id: '2',
-    establishmentId: '2',
-    establishmentName: 'Hospital Santa Maria',
-    field: 'hours',
-    currentValue: '24 horas',
-    suggestedValue: 'Seg-Dom: 6h-22h',
-    submittedBy: 'Maria Santos',
-    submittedAt: '2025-11-05T10:15:00',
-    status: 'pending',
-  },
-  {
-    id: '3',
-    establishmentId: '3',
-    establishmentName: 'Centro Médico Vitória',
-    field: 'address',
-    currentValue: 'Av. Faria Lima, 2000 - São Paulo, SP',
-    suggestedValue: 'Av. Brigadeiro Faria Lima, 2000 - Jardim Paulistano, São Paulo, SP',
-    submittedBy: 'Pedro Oliveira',
-    submittedAt: '2025-11-04T16:45:00',
-    status: 'pending',
-  },
-  {
-    id: '4',
-    establishmentId: '1',
-    establishmentName: 'Clínica São Lucas',
-    field: 'doctors',
-    currentValue: 'Dr. João Silva, Dra. Maria Santos',
-    suggestedValue: 'Dr. João Silva, Dra. Maria Santos, Dr. Pedro Oliveira',
-    submittedBy: 'Ana Costa',
-    submittedAt: '2025-11-03T09:20:00',
-    status: 'approved',
-  },
-  {
-    id: '5',
-    establishmentId: '4',
-    establishmentName: 'Clínica Boa Saúde',
-    field: 'insurances',
-    currentValue: 'Unimed, Bradesco Saúde',
-    suggestedValue: 'Unimed, Bradesco Saúde, Amil, Porto Seguro',
-    submittedBy: 'Carlos Mendes',
-    submittedAt: '2025-11-02T11:00:00',
-    status: 'approved',
-  },
-  {
-    id: '6',
-    establishmentId: '5',
-    establishmentName: 'Instituto Cardio Life',
-    field: 'specialties',
-    currentValue: 'Cardiologia',
-    suggestedValue: 'Cardiologia, Cirurgia Cardíaca, Ecocardiografia',
-    submittedBy: 'Beatriz Ferreira',
-    submittedAt: '2025-11-01T15:30:00',
-    status: 'rejected',
-  },
-];
-
-const fieldLabels: Record<string, string> = {
-  name: 'Nome',
-  address: 'Endereço',
-  phone: 'Telefone',
-  hours: 'Horário',
-  doctors: 'Médicos',
-  specialties: 'Especialidades',
-  insurances: 'Convênios',
-};
-
 export function ReviewEdits({ onBack }: ReviewEditsProps) {
-  const [suggestions, setSuggestions] = useState<EditSuggestion[]>(mockEditSuggestions);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [actionMessage, setActionMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const handleApprove = (suggestionId: string) => {
-    setSuggestions((prev) =>
-      prev.map((s) => (s.id === suggestionId ? { ...s, status: 'approved' as const } : s))
-    );
-    setActionMessage({ type: 'success', text: 'Alteração aprovada com sucesso!' });
-    setTimeout(() => setActionMessage(null), 3000);
+  // Carregar sugestões da API
+  useEffect(() => {
+    const loadSuggestions = async () => {
+      try {
+        const data = await api.listEditSuggestions();
+        // Transformar para o formato esperado
+        const transformed = data.map((s: any) => ({
+          id: s.id.toString(),
+          establishmentId: s.establishment_id,
+          establishmentName: s.establishment_name,
+          field: s.field,
+          currentValue: s.current_value || '',
+          suggestedValue: s.suggested_value,
+          submittedBy: s.submitted_by,
+          submittedAt: s.submitted_at,
+          status: s.status as 'pending' | 'approved' | 'rejected',
+        }));
+        setSuggestions(transformed);
+      } catch (err) {
+        console.error('Erro ao carregar sugestões:', err);
+        setActionMessage({ type: 'error', text: 'Erro ao carregar sugestões' });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSuggestions();
+  }, []);
+
+  const handleApprove = async (suggestionId: string) => {
+    try {
+      await api.updateEditSuggestionStatus(parseInt(suggestionId), 'approved');
+      setSuggestions((prev) =>
+        prev.map((s) => (s.id === suggestionId ? { ...s, status: 'approved' as const } : s))
+      );
+      setActionMessage({ type: 'success', text: 'Alteração aprovada com sucesso!' });
+      setTimeout(() => setActionMessage(null), 3000);
+    } catch (err) {
+      console.error('Erro ao aprovar sugestão:', err);
+      setActionMessage({ type: 'error', text: 'Erro ao aprovar sugestão' });
+    }
   };
 
-  const handleReject = (suggestionId: string) => {
-    setSuggestions((prev) =>
-      prev.map((s) => (s.id === suggestionId ? { ...s, status: 'rejected' as const } : s))
-    );
-    setActionMessage({ type: 'success', text: 'Alteração rejeitada.' });
-    setTimeout(() => setActionMessage(null), 3000);
+  const handleReject = async (suggestionId: string) => {
+    try {
+      await api.updateEditSuggestionStatus(parseInt(suggestionId), 'rejected');
+      setSuggestions((prev) =>
+        prev.map((s) => (s.id === suggestionId ? { ...s, status: 'rejected' as const } : s))
+      );
+      setActionMessage({ type: 'success', text: 'Sugestão rejeitada.' });
+      setTimeout(() => setActionMessage(null), 3000);
+    } catch (err) {
+      console.error('Erro ao rejeitar sugestão:', err);
+      setActionMessage({ type: 'error', text: 'Erro ao rejeitar sugestão' });
+    }
   };
+
+  const fieldLabels: Record<string, string> = {
+    name: 'Nome',
+    address: 'Endereço',
+    phone: 'Telefone',
+    telefone: 'Telefone',
+    hours: 'Horário',
+    horario: 'Horário',
+    endereco: 'Endereço',
+    doctors: 'Médicos',
+    specialties: 'Especialidades',
+    insurances: 'Convênios',
+  };
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center gap-4">
+          <Button variant="outline" onClick={onBack} className="gap-2 border-border">
+            <ArrowLeft className="w-4 h-4" />
+            Voltar
+          </Button>
+          <h1 className="text-primary">Revisar Sugestões de Edição</h1>
+        </div>
+        <Card className="p-8 text-center">
+          <p className="text-muted-foreground">Carregando sugestões...</p>
+        </Card>
+      </div>
+    );
+  }
 
   const pendingSuggestions = suggestions.filter((s) => s.status === 'pending');
   const approvedSuggestions = suggestions.filter((s) => s.status === 'approved');

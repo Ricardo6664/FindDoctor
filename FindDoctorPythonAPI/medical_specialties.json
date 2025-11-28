@@ -1,0 +1,407 @@
+[
+  {
+    "id": "142710",
+    "nome": "TECNOLOGO EM SISTEMAS BIOMEDICOS",
+    "profissionais": null
+  },
+  {
+    "id": "214380",
+    "nome": "ENGENHEIRO BIOMEDICO",
+    "profissionais": null
+  },
+  {
+    "id": "221205",
+    "nome": "BIOMEDICO",
+    "profissionais": null
+  },
+  {
+    "id": "223119",
+    "nome": "MEDICO EM ELETROENCEFALOGRAFIA",
+    "profissionais": null
+  },
+  {
+    "id": "223150",
+    "nome": "MEDICO PERITO",
+    "profissionais": null
+  },
+  {
+    "id": "2231A1",
+    "nome": "MEDICO BRONCOESOFALOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "2231A2",
+    "nome": "MEDICO HANSENOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "2231F8",
+    "nome": "MEDICO EM MEDICINA PREVENTIVA E SOCIAL",
+    "profissionais": null
+  },
+  {
+    "id": "2231F9",
+    "nome": "MEDICO RESIDENTE",
+    "profissionais": null
+  },
+  {
+    "id": "2231G1",
+    "nome": "MEDICO CARDIOLOGISTA INTERVENCIONISTA",
+    "profissionais": null
+  },
+  {
+    "id": "223305",
+    "nome": "MEDICO VETERINARIO",
+    "profissionais": null
+  },
+  {
+    "id": "225103",
+    "nome": "MEDICO INFECTOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225105",
+    "nome": "MEDICO ACUPUNTURISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225106",
+    "nome": "MEDICO LEGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225109",
+    "nome": "MEDICO NEFROLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225110",
+    "nome": "MEDICO ALERGISTA E IMUNOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225112",
+    "nome": "MEDICO NEUROLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225115",
+    "nome": "MEDICO ANGIOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225118",
+    "nome": "MEDICO NUTROLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225120",
+    "nome": "MEDICO CARDIOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225121",
+    "nome": "MEDICO ONCOLOGISTA CLINICO",
+    "profissionais": null
+  },
+  {
+    "id": "225122",
+    "nome": "MEDICO CANCEROLOGISTA PEDIATRICO",
+    "profissionais": null
+  },
+  {
+    "id": "225124",
+    "nome": "MEDICO PEDIATRA",
+    "profissionais": null
+  },
+  {
+    "id": "225125",
+    "nome": "MEDICO CLINICO",
+    "profissionais": null
+  },
+  {
+    "id": "225127",
+    "nome": "MEDICO PNEUMOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225130",
+    "nome": "MEDICO DE FAMILIA E COMUNIDADE",
+    "profissionais": null
+  },
+  {
+    "id": "225133",
+    "nome": "MEDICO PSIQUIATRA",
+    "profissionais": null
+  },
+  {
+    "id": "225135",
+    "nome": "MEDICO DERMATOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225136",
+    "nome": "MEDICO REUMATOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225139",
+    "nome": "MEDICO SANITARISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225140",
+    "nome": "MEDICO DO TRABALHO",
+    "profissionais": null
+  },
+  {
+    "id": "225142",
+    "nome": "MEDICO DA ESTRATEGIA DE SAUDE DA FAMILIA",
+    "profissionais": null
+  },
+  {
+    "id": "225145",
+    "nome": "MEDICO EM MEDICINA DE TRAFEGO",
+    "profissionais": null
+  },
+  {
+    "id": "225148",
+    "nome": "MEDICO ANATOMOPATOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225150",
+    "nome": "MEDICO EM MEDICINA INTENSIVA",
+    "profissionais": null
+  },
+  {
+    "id": "225151",
+    "nome": "MEDICO ANESTESIOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225154",
+    "nome": "MEDICO ANTROPOSOFICO",
+    "profissionais": null
+  },
+  {
+    "id": "225155",
+    "nome": "MEDICO ENDOCRINOLOGISTA E METABOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225160",
+    "nome": "MEDICO FISIATRA",
+    "profissionais": null
+  },
+  {
+    "id": "225165",
+    "nome": "MEDICO GASTROENTEROLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225170",
+    "nome": "MEDICO GENERALISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225175",
+    "nome": "MEDICO GENETICISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225180",
+    "nome": "MEDICO GERIATRA",
+    "profissionais": null
+  },
+  {
+    "id": "225185",
+    "nome": "MEDICO HEMATOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225190",
+    "nome": "MEDICO HEMOTERAPEUTA",
+    "profissionais": null
+  },
+  {
+    "id": "225195",
+    "nome": "MEDICO HOMEOPATA",
+    "profissionais": null
+  },
+  {
+    "id": "225203",
+    "nome": "MEDICO EM CIRURGIA VASCULAR",
+    "profissionais": null
+  },
+  {
+    "id": "225210",
+    "nome": "MEDICO CIRURGIAO CARDIOVASCULAR",
+    "profissionais": null
+  },
+  {
+    "id": "225215",
+    "nome": "MEDICO CIRURGIAO DE CABECA E PESCOCO",
+    "profissionais": null
+  },
+  {
+    "id": "225220",
+    "nome": "MEDICO CIRURGIAO DO APARELHO DIGESTIVO",
+    "profissionais": null
+  },
+  {
+    "id": "225225",
+    "nome": "MEDICO CIRURGIAO GERAL",
+    "profissionais": null
+  },
+  {
+    "id": "225230",
+    "nome": "MEDICO CIRURGIAO PEDIATRICO",
+    "profissionais": null
+  },
+  {
+    "id": "225235",
+    "nome": "MEDICO CIRURGIAO PLASTICO",
+    "profissionais": null
+  },
+  {
+    "id": "225240",
+    "nome": "MEDICO CIRURGIAO TORACICO",
+    "profissionais": null
+  },
+  {
+    "id": "225245",
+    "nome": "MEDICO FONIATRA",
+    "profissionais": null
+  },
+  {
+    "id": "225250",
+    "nome": "MEDICO GINECOLOGISTA E OBSTETRA",
+    "profissionais": null
+  },
+  {
+    "id": "225255",
+    "nome": "MEDICO MASTOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225260",
+    "nome": "MEDICO NEUROCIRURGIAO",
+    "profissionais": null
+  },
+  {
+    "id": "225265",
+    "nome": "MEDICO OFTALMOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225270",
+    "nome": "MEDICO ORTOPEDISTA E TRAUMATOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225275",
+    "nome": "MEDICO OTORRINOLARINGOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225280",
+    "nome": "MEDICO COLOPROCTOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225285",
+    "nome": "MEDICO UROLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225290",
+    "nome": "MEDICO CANCEROLOGISTA CIRURGICO",
+    "profissionais": null
+  },
+  {
+    "id": "225295",
+    "nome": "MEDICO CIRURGIAO DA MAO",
+    "profissionais": null
+  },
+  {
+    "id": "225305",
+    "nome": "MEDICO CITOPATOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225310",
+    "nome": "MEDICO EM ENDOSCOPIA",
+    "profissionais": null
+  },
+  {
+    "id": "225315",
+    "nome": "MEDICO EM MEDICINA NUCLEAR",
+    "profissionais": null
+  },
+  {
+    "id": "225320",
+    "nome": "MEDICO EM RADIOLOGIA E DIAGNOSTICO POR IMAGEM",
+    "profissionais": null
+  },
+  {
+    "id": "225325",
+    "nome": "MEDICO PATOLOGISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225330",
+    "nome": "MEDICO RADIOTERAPEUTA",
+    "profissionais": null
+  },
+  {
+    "id": "225335",
+    "nome": "MEDICO PATOLOGISTA CLINICO  MEDICINA LABORATORIAL",
+    "profissionais": null
+  },
+  {
+    "id": "225340",
+    "nome": "MEDICO HEMOTERAPEUTA",
+    "profissionais": null
+  },
+  {
+    "id": "225345",
+    "nome": "MEDICO HIPERBARISTA",
+    "profissionais": null
+  },
+  {
+    "id": "225350",
+    "nome": "MEDICO NEUROFISIOLOGISTA CLINICO",
+    "profissionais": null
+  },
+  {
+    "id": "225355",
+    "nome": "MEDICO RADIOLOGISTA INTERVENCIONISTA",
+    "profissionais": null
+  },
+  {
+    "id": "3135D2",
+    "nome": "TECNICO EM EQUIPAMENTO MEDICO HOSPITALAR",
+    "profissionais": null
+  },
+  {
+    "id": "422110",
+    "nome": "RECEPCIONISTA DE CONSULTORIO MEDICO OU DENTARIO",
+    "profissionais": null
+  },
+  {
+    "id": "515135",
+    "nome": "SOCORRISTA (EXCETO MEDICOS E ENFERMEIROS)",
+    "profissionais": null
+  },
+  {
+    "id": "731105",
+    "nome": "MONTADOR DE EQUIPAMENTOS ELETRONICOS (APARELHOS MEDICOS)",
+    "profissionais": null
+  },
+  {
+    "id": "915305",
+    "nome": "TECNICO EM MANUTENCAO DE EQUIPAMENTOS E INSTRUMENTOS MEDICOHOSPITALARES",
+    "profissionais": null
+  }
+]
